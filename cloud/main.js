@@ -130,7 +130,7 @@ var plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.
 
 Parse.Cloud.define('userTransactions', function(request, response){
 
-plaidClient.addAuthUser('bofa', {
+plaidClient.addAuthUser('ins_100046', {
   username: 'plaid_test',
   password: 'plaid_good',
 }, function(err, mfaResponse, resp) {
