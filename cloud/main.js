@@ -12,7 +12,7 @@ require('isomorphic-fetch')
 //
 //     });
 
-
+// Parse.serverURL = process.env.SERVER_URL
 
 Parse.Cloud.define('addCharity', function(request, response){
   const charityId = request.params.charityId;
