@@ -3,49 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>plaid</plaid>
+  <title>plaid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
   <p>Authenticate Bank</p>
-  <!--<button id='linkButton'>Open Link - Institution Select</button>
-  <button id='bofaButton'>Open Link - Bank of America</button>
-  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-  <script>
-    var linkHandler = Plaid.create({
-      env: 'tartan',
-      clientName: 'Client Name',
-      key: 'test_key',
-      product: 'auth',
-      onLoad: function() {
-        // The Link module finished loading.
-      },
-      onSuccess: function(public_token, metadata) {
-        // Send the public_token to your app server here.
-        // The metadata object contains info about the institution the
-        // user selected and the account ID, if selectAccount is enabled.
-      },
-      onExit: function(err, metadata) {
-        // The user exited the Link flow.
-        if (err != null) {
-          // The user encountered a Plaid API error prior to exiting.
-        }
-        // metadata contains information about the institution
-        // that the user selected and the most recent API request IDs.
-        // Storing this information can be helpful for support.
-      }
-    });
-
-    // Trigger the BofA login view
-    document.getElementById('bofaButton').onclick = function() {
-    linkHandler.open('bofa');
-  };
-
-    // Trigger the standard institution select view
-    document.getElementById('linkButton').onclick = function() {
-    linkHandler.open();
-  };
-</script>!-->
 </body>
 </html>
