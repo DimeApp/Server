@@ -1,6 +1,15 @@
 // Example express application adding the parse-server module to expose Parse
 // compatible API routes.
 
+
+var plaid = require('plaid');
+
+
+var PLAID_CLIENT_ID = process.env.client_id;
+var PLAID_SECRET = process.env.secret;
+
+var plaidClient =
+    new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
@@ -48,7 +57,7 @@ app.get('/test', function(req, res) {
 
 
 app.post("/bank/authenticate", function(req, res) {
-  
+
 var public_token = req.body.public_token;
 
 plaidClient.exchangeToken(public_token, function(err,
