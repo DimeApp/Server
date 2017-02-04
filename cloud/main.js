@@ -141,14 +141,15 @@ plaidClient.addAuthUser('ins_100046', {
   } else if (mfaResponse != null) {
     plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
     function(err, mfaRes, resp) {
-      console.log(resp.accounts);
-      response.success(resp.accounts);
+      console.log(resp);
+      response.success(resp);
     });
   } else {
     // No MFA required - response body has accounts
-    console.log(resp.accounts);
-    response.success(resp.accounts);
+    console.log(resp);
+    response.success(resp);
   }
+
 });
 
 });
