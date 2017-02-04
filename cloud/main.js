@@ -128,7 +128,9 @@ var plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.
 
 // Add a BofA auth user going through question-based MFA
 
-Parse.Cloud.define('userTransactions', function(request, response){
+Parse.Cloud.define('userAccessToken', function(request, response){
+  const bankUserName = req.
+  var user = request.user;
 
 plaidClient.addAuthUser('ins_100046', {
   username: 'plaid_test',
@@ -141,8 +143,10 @@ plaidClient.addAuthUser('ins_100046', {
   } else if (mfaResponse != null) {
     plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
     function(err, mfaRes, resp) {
-      console.log(resp);
-      response.success(resp);
+      user.set('backAccessToken', mfaRes.access_token);
+      user.save(null, {sessionToken: user.getSessionToken()}).then(fuction(user){
+        response.success();
+      })
     });
   } else {
     // No MFA required - response body has accounts
@@ -153,6 +157,17 @@ plaidClient.addAuthUser('ins_100046', {
 });
 
 });
+
+
+Parse.Cloud.define('getTransactions', function(request, response){
+  const bankUserName = req.
+  var user = request.user;
+  var access_token = request.params.access_token;
+  plaidClient.getInfoUser(access_token, function(err,resp) {
+    response.success(resp);
+  });
+});
+
 
 
 
