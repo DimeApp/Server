@@ -1,7 +1,7 @@
 # INTERACTING WITH THE DIME SERVER READ ME
 
 Sign Up, POST
-"parse/signup"
+"parse/user"
 headers: ["X-Parse-Application-Id" : APP_ID]
 
 body: ["username": String, "password":String]
