@@ -61,10 +61,10 @@ Parse.Cloud.define('getTransactions', function(request,response){
   const bank = request.params.bank;
   // const pin = request.parans.pin;
 
-  const client_id = process.env.client_id
-  const secret = process.env.secret
+  const client_id = process.env.client_id;
+  const secret = process.env.secret;
   // process.env.
-  fetch("https://tartan.plaid.com/info", {
+  fetch("https://tartan.plaid.com/connect", {
     method: 'POST',
     body: JSON.stringify({
       "client_id":client_id,
