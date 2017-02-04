@@ -144,7 +144,7 @@ plaidClient.addAuthUser('ins_100046', {
     function(err, mfaRes, resp) {
       console.log(mfaRes);
       console.log(resp);
-      user.set('backAccessToken', mfaResponse.access_token);
+      user.set('backAccessToken', resp.access_token);
       user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
         response.success();
       })
