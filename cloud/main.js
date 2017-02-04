@@ -128,23 +128,26 @@ var plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.
 
 // Add a BofA auth user going through question-based MFA
 
-Parse.cloud.define('userTransactions', function(request, response){
-  
+Parse.Cloud.define('userTransactions', function(request, response){
+
 plaidClient.addAuthUser('bofa', {
   username: 'plaid_test',
   password: 'plaid_good',
-}, function(err, mfaResponse, response) {
+}, function(err, mfaResponse, resp) {
   if (err != null) {
     // Bad request - invalid credentials, account locked, etc.
     console.error(err);
+    response.error(error)
   } else if (mfaResponse != null) {
     plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
-    function(err, mfaRes, response) {
-      console.log(response.accounts);
+    function(err, mfaRes, resp) {
+      console.log(resp.accounts);
+      response.success(resp.accounts);
     });
   } else {
     // No MFA required - response body has accounts
-    console.log(response.accounts);
+    console.log(resp.accounts);
+    response.success(resp.accounts);
   }
 });
 
