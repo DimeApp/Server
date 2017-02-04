@@ -1,3 +1,19 @@
+var plaid = require('plaid');
+
+
+var PLAID_CLIENT_ID = process.env.client_id;
+var PLAID_SECRET = process.env.secret;
+
+var plaidClient =
+    new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
+
+app.post("/authenticate", function(req, res) {
+  var public_token = req.body.public_token;
+  
+
+});
+
+
 Parse.Cloud.define('addCharity', function(request, response){
   const charityId = request.params.charityId;
   const user = request.user;
@@ -64,22 +80,29 @@ Parse.Cloud.define('getTransactions', function(request,response){
   const client_id = process.env.client_id;
   const secret = process.env.secret;
   // process.env.
-  fetch("https://tartan.plaid.com/connect", {
-    method: 'POST',
-    body: JSON.stringify({
-      "client_id":client_id,
-      "secret":secret,
-      "username":bankUserName,
-      "password":password,
-      "type":bank
-    })
+  // fetch("https://tartan.plaid.com/connect", {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     "client_id":client_id,
+  //     "secret":secret,
+  //     "username":bankUserName,
+  //     "password":password,
+  //     "type":bank
+  //   })
+  //
+  //
+  //
+  // }).then(function(resp){
+  //   response.success(resp);
+  // }, function(error){
+  //   console.error(error);
+  //   response.error(error);
+  // })
 
-  }).then(function(resp){
-    response.success(resp);
-  }, function(error){
-    console.error(error);
-    response.error(error);
-  })
+
+
+
+
 });
 
 

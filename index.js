@@ -45,11 +45,43 @@ app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
+
+
+app.post("/bank/authenticate", function(req, res) {
+  
+var public_token = req.body.public_token;
+
+plaidClient.exchangeToken(public_token, function(err,
+exchangeTokenRes){
+  if (err != null) {
+
+  } else {
+    var access_token = exchangeTokenRes.access_token;
+
+    plaidClient.getAuthUser(access_token, function(err, authRes) {
+      if (err != null) {
+
+      } else {
+        var accounts = authRes.accounts;
+        res.json({accounts: accounts});
+      }
+    });
+  }
+});
+});
+
+
+
+
 var port = process.env.PORT || 3000;
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.');
 });
+
+
+
+
 
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
