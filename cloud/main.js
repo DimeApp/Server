@@ -129,7 +129,6 @@ var plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.
 // Add a BofA auth user going through question-based MFA
 
 Parse.Cloud.define('userAccessToken', function(request, response){
-  const bankUserName = req.
   var user = request.user;
 
 plaidClient.addAuthUser('ins_100046', {
