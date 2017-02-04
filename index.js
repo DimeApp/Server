@@ -5,14 +5,14 @@
 var plaid = require('plaid');
 
 
-var PLAID_CLIENT_ID = process.env.client_id;
-var PLAID_SECRET = process.env.secret;
+// var PLAID_CLIENT_ID = process.env.client_id;
+// var PLAID_SECRET = process.env.secret;
 
-var plaidClient =
-    new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
-var express = require('express');
-var ParseServer = require('parse-server').ParseServer;
-var path = require('path');
+// var plaidClient =
+//     new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
+// var express = require('express');
+// var ParseServer = require('parse-server').ParseServer;
+// var path = require('path');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
