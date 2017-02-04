@@ -10,9 +10,9 @@ var plaid = require('plaid');
 
 // var plaidClient =
 //     new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
-// var express = require('express');
-// var ParseServer = require('parse-server').ParseServer;
-// var path = require('path');
+var express = require('express');
+var ParseServer = require('parse-server').ParseServer;
+var path = require('path');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
