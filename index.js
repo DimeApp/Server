@@ -1,16 +1,8 @@
 // Example express application adding the parse-server module to expose Parse
 // compatible API routes.
 
-
-var plaid = require('plaid');
-
-
-// var PLAID_CLIENT_ID = process.env.client_id;
-// var PLAID_SECRET = process.env.secret;
-
-// var plaidClient =
-//     new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
 var express = require('express');
+var plaid = require('plaid');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
@@ -36,6 +28,8 @@ var api = new ParseServer({
 
 var app = express();
 
+var plaidClient = new plaid.Client(process.env.client_id, process.env.secret, plaid.environments.tartan);
+
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
@@ -54,7 +48,27 @@ app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
+app.get('/authenticate', function(req, res) {
+  var public_token = req.body.public_token;
 
+  plaidClient.exchangeToken(public_token, function(err, exchangeTokenRes) {
+    if (err != null) {
+
+    } else {
+      var access_token = exchangeTokenRes.access_token;
+
+      plaidClient.getAuthUser(access_token, function(err, authRes) {
+        if (err != null) {
+
+        } else {
+          var accounts = authRes.accounts;
+
+          res.json({accounts: accounts});
+        }
+      });
+    }
+  });
+});
 
 // app.post("/bank/authenticate", function(req, res) {
 //
