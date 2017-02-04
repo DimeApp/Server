@@ -70,9 +70,10 @@ Parse.Cloud.define('getUserCharityList', function(request, response){
   const user = request.user;
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
-  userQuery.get(user.id).then(function(user){
+  userQuery.get(user.id, {sessionToken: user.getSessionToken()}).then(function(user){
     var relation = user.relation('user');
-    return relation.query().find().then(function (charities){
+    var query = relation.query();
+    return query.find({sessionToken: user.getSessionToken()}).then(function (charities){
       return charities;
     });
   }).then(function(charities){
@@ -126,6 +127,8 @@ var plaid = require('plaid');
 var plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan);
 
 
+//  url/parse/functions/userAccessToken
+
 // Add a BofA auth user going through question-based MFA
 
 Parse.Cloud.define('userAccessToken', function(request, response){
@@ -159,6 +162,8 @@ plaidClient.addAuthUser('ins_100046', {
 
 });
 
+//    parse/login
+//    parse/functions/getTransactions
 
 Parse.Cloud.define('getTransactions', function(request, response){
   var user = request.user;
