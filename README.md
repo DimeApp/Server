@@ -1,3 +1,42 @@
+# INTERACTING WITH THE DIME SERVER READ ME
+
+Sign Up, POST
+"parse/signup"
+headers: ["X-Parse-Application-Id" : APP_ID]
+
+body: ["username": String, "password":String]
+
+Log In, GET
+"parse/login"
+headers: ["X-Parse-Application-Id" : APP_ID]
+body: ["username": String, "password":String]
+
+Functions BANKING
+POST
+"parse/functions/userAccessToken"
+headers: ["X-Parse-Application-Id" : APP_ID, "X-Parse-Session-Token": session_token]
+body: ["username": String, "password":String]
+then
+POST
+"parse/functions/getTransactions"
+headers: ["X-Parse-Application-Id" : APP_ID, "X-Parse-Session-Token": session_token]
+
+Functions charities
+
+"parse/classes/Charity"
+headers: ["X-Parse-Application-Id" : APP_ID,]
+
+"parse/functions/addCharity"
+headers: ["X-Parse-Application-Id" : APP_ID, "X-Parse-Session-Token": session_token]
+
+"parse/functions/removeCharity"
+headers: ["X-Parse-Application-Id" : APP_ID, "X-Parse-Session-Token": session_token]
+
+
+
+
+
+
 # parse-server-example
 
 Example project using the [parse-server](https://github.com/ParsePlatform/parse-server) module on Express.
@@ -56,7 +95,7 @@ A detailed tutorial is available here:
 
 ### Getting Started With Google App Engine
 
-1. Clone the repo and change directory to it 
+1. Clone the repo and change directory to it
 1. Create a project in the [Google Cloud Platform Console](https://console.cloud.google.com/).
 1. [Enable billing](https://console.cloud.google.com/project/_/settings) for your project.
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
@@ -114,7 +153,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
   http://localhost:1337/parse/classes/GameScore
-  
+
 curl -X POST \
   -H "X-Parse-Application-Id: myAppId" \
   -H "Content-Type: application/json" \
