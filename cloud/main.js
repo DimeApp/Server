@@ -1,4 +1,74 @@
+Parse.Cloud.define('addCharity', function(request, response){
+  const charityId = request.params.charityId;
+  const user = request.user;
 
-Parse.Cloud.define('hello', function(req, res) {
-  res.success('Hi');
+  if(charityId == null){
+    response.error('No charityId');
+  }
+  if(user == null){
+    response.error('Either no session token or session token has expired');
+  }
+  const Charity = Parse.Object.extend('Charity');
+  const charityQuery = new Parse.Query(Charity);
+  charityQuery.get(charityId).then(function(charity){
+    const relation = user.relation('charities');
+    relation.add(charity);
+    return user.save(null, {sessionToken: user.getSessionToken()});
+  }).then(function(user){
+    response.success('Save successful');
+  }, function(error){
+    console.error(error);
+    response.error(error);
+  })
 });
+
+
+Parse.Cloud.define('removeCharity', function(request, response){
+  const charityId = request.params.charityId;
+  const user = request.user;
+
+  if(charityId == null){
+    response.error('No charityId');
+  }
+  if(user == null){
+    response.error('Either no session token or session token has expired');
+  }
+
+  const Charity = Parse.Object.extend('Charity');
+  const charityQuery = new Parse.Query(Charity);
+  charityQuery.get(charityId).then(function(charity){
+    const relation = user.relation('charities');
+    relation.remoove(charity);
+    return user.save(null, {sessionToken: user.getSessionToken()});
+  }).then(function(user){
+    response.success('Save successful');
+  }, function(error){
+    console.error(error);
+    response.error(error);
+  })
+});
+
+//Plaid API Calls
+
+Parse.Cloud.define('getTransactions', function(request,response){
+  const user = request.user;
+  if(user == null){
+    response.error('Either no session token or session token has expired');
+  }
+
+
+});
+
+
+
+/ fetch(parse_api_root + 'functions/addCharity', {
+//   method: 'POST',
+//   headers: {
+//     'X-Parse-Application-Id': '001001',
+//     'X-Parse-Session-Token': 'sessionToken',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     charityId: 'charityId'
+//   })
+// })

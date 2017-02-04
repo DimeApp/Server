@@ -9,7 +9,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "es6-promise": "^4.0.5",
     "express": "~4.11.x",
+    "isomorphic-fetch": "^2.2.1",
     "kerberos": "~0.0.x",
     "parse": "~1.8.0",
     "parse-server": "*"
