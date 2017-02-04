@@ -142,7 +142,9 @@ plaidClient.addAuthUser('ins_100046', {
   } else if (mfaResponse != null) {
     plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
     function(err, mfaRes, resp) {
-      user.set('backAccessToken', mfaRes.access_token);
+      console.log(mfaRes);
+      console.log(resp);
+      user.set('backAccessToken', mfaResponse.access_token);
       user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
         response.success();
       })
