@@ -1,14 +1,16 @@
 // var plaid = require('plaid');
-// var fetch = require('isomorphic-fetch')
+require('isomorphic-fetch')
 //
 // var PLAID_CLIENT_ID = process.env.client_id;
 // var PLAID_SECRET = process.env.secret;
 //
 // var plaidClient =
 //     new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
-
+//
 // Parse.Cloud.define('getTransactions', function(request,response){
 //       const user = request.user;
+//
+//     });
 
 
 
@@ -61,6 +63,47 @@ Parse.Cloud.define('removeCharity', function(request, response){
     response.error(error);
   })
 });
+
+
+Parse.Cloud.define('getUserCharityList', function(request, response){
+
+  const user = request.user;
+  const User = Parse.Object.extend('User');
+  const userQuery = new Parse.Query(User);
+  userQuery.get(userId).then(function(user){
+    var relation = user.relation('user');
+    return relation.query().find().then(function (charities){
+      return charities;
+    });
+  }).then(function(charities){
+    response.success({error: false, charities: charities});
+  }, function(error){
+    console.error(error);
+    response.success({error: true, message: error});
+  });
+
+});
+
+
+Parse.Cloud.define('getUserBalance', function(request, response){
+  const user = request.user;
+  const User = Parse.Object.extend('User');
+  const userQuery = new Parse.Query(User);
+  userQuery.get(userId).then(function(user){
+    return user.get('balance');
+  }).then(function(balance){
+    response.success({error: false, balance: balance});
+  }, function(error){
+    console.error(error);
+    response.success({error: true, message: error});
+  });
+
+});
+
+
+
+
+
 
 //Plaid API Calls
 //
