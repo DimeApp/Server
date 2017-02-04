@@ -48,7 +48,7 @@ app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
-/*app.get('/authenticate', function(req, res) {
+app.get('/authenticate', function(req, res) {
   var public_token = req.body.public_token;
 
   plaidClient.exchangeToken(public_token, function(err, exchangeTokenRes) {
@@ -68,7 +68,7 @@ app.get('/test', function(req, res) {
       });
     }
   });
-});*/
+});
 
 // app.post("/bank/authenticate", function(req, res) {
 //
