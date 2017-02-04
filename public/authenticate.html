@@ -9,13 +9,12 @@
 
 <body>
   <button id='linkButton'>Open Link - Institution Select</button>
-  <button id='bofaButton'>Open Link - Bank of America</button>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
   <script>
     var linkHandler = Plaid.create({
       env: 'tartan',
       clientName: 'Client Name',
-      key: 'test_key',
+      key: 'eb2f33c00a75eb997eee054e565bdd',
       product: 'auth',
       onLoad: function() {
         // The Link module finished loading.
@@ -35,11 +34,6 @@
         // Storing this information can be helpful for support.
       }
     });
-
-    // Trigger the BofA login view
-    document.getElementById('bofaButton').onclick = function() {
-      linkHandler.open('bofa');
-    };
 
     // Trigger the standard institution select view
     document.getElementById('linkButton').onclick = function() {
