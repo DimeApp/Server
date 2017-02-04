@@ -163,7 +163,7 @@ plaidClient.addAuthUser('ins_100046', {
 Parse.Cloud.define('getTransactions', function(request, response){
   var user = request.user;
   var access_token = user.get('backAccessToken');
-  plaidClient.getInfoUser(access_token, function(err,resp) {
+  plaidClient.getConnectUser(access_token, function(err,resp) {
     response.success(resp);
   });
 });
