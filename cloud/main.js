@@ -1,5 +1,5 @@
 var plaid = require('plaid');
-
+var fetch = require('isomorphic-fetch')
 
 var PLAID_CLIENT_ID = process.env.client_id;
 var PLAID_SECRET = process.env.secret;
@@ -75,44 +75,24 @@ Parse.Cloud.define('getTransactions', function(request,response){
   const bank = request.params.bank;
   // const pin = request.parans.pin;
 
-  const client_id = process.env.client_id;
-  const secret = process.env.secret;
-  process.env.
-  fetch("https://tartan.plaid.com/connect", {
-    method: 'POST',
-    body: JSON.stringify({
-      "client_id":client_id,
-      "secret":secret,
-      "username":bankUserName,
-      "password":password,
-      "type":bank
-    })
-
-
-
-  }).then(function(resp){
-    response.success(resp);
-  }, function(error){
-    console.error(error);
-    response.error(error);
-  })
-
-
-
-
+  // const client_id = process.env.client_id;
+  // const secret = process.env.secret;
+  // process.env.
+//   fetch("https://tartan.plaid.com/connect", {
+//     method: 'POST',
+//     body: JSON.stringify({
+//       "client_id":client_id,
+//       "secret":secret,
+//       "username":bankUserName,
+//       "password":password,
+//       "type":bank
+//     })
+//   }).then(function(resp){
+//     response.success(resp);
+//   }, function(error){
+//     console.error(error);
+//     response.error(error);
+//   })
+// });
 
 });
-
-
-
-// fetch(parse_api_root + 'functions/addCharity', {
-//   method: 'POST',
-//   headers: {
-//     'X-Parse-Application-Id': '001001',
-//     'X-Parse-Session-Token': 'sessionToken',
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({
-//     charityId: 'charityId'
-//   })
-// })
