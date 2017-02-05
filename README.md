@@ -28,7 +28,6 @@ headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_tok
 
 
 ### CHARITY FUNCTIONS
-
 Function: Add New Charity for User <br>
 Type: POST <br>
 Path: "parse/functions/addCharity" <br>
@@ -45,10 +44,15 @@ Function: Get Charities for User <br>
 Type: POST <br>
 Path: "parse/functions/getUserCharityList" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
-body: ["charityId": String] <br>
 
 Function: Get all Charities <br>
 Type: POST <br>
 Path: "parse/classes/Charity" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
-body: <br>
+
+
+### BALANCE FUNCTIONS
+Function: Get User Balance <br>
+Type: POST <br>
+Path: "parse/functions/getUserBalance" <br>
+headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
