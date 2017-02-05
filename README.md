@@ -3,7 +3,7 @@
 ### USER FUNCTIONS
 Function: Sign Up New User <br>
 Type: POST <br>
-Path: "parse/user" <br>
+Path: "parse/users" <br>
 headers: ["X-Parse-Application-Id": APP_ID] <br>
 body: ["username": String, "password": String] <br>
 
@@ -56,3 +56,8 @@ Function: Get User Balance <br>
 Type: POST <br>
 Path: "parse/functions/getUserBalance" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
+
+Function Update User Balance <br>
+Type: POST <br>
+Path: "parse/functions/updateUserBalance" <br>
+body: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
