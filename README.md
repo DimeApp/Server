@@ -37,7 +37,7 @@ body: ["charityId": String] <br>
 
 Function: Delete Charity for User <br>
 Type: POST <br>
-Path: "parse/functions/RemoveCharity" <br>
+Path: "parse/functions/removeCharity" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
 body: ["charityId": String] <br>
 
@@ -46,3 +46,9 @@ Type: POST <br>
 Path: "parse/functions/getUserCharityList" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
 body: ["charityId": String] <br>
+
+Function: Get all Charities <br>
+Type: POST <br>
+Path: "parse/classes/Charity" <br>
+headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
+body: <br>
