@@ -54,7 +54,7 @@ Parse.Cloud.define('removeCharity', function(request, response){
   const charityQuery = new Parse.Query(Charity);
   charityQuery.get(charityId).then(function(charity){
     const relation = user.relation('charities');
-    relation.remoove(charity);
+    relation.remove(charity);
     return user.save(null, {sessionToken: user.getSessionToken()});
   }).then(function(user){
     response.success('Save successful');
