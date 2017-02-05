@@ -52,3 +52,8 @@ Type: POST <br>
 Path: "parse/classes/Charity" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
 body: <br>
+
+Function: Get all userCharity relationships for User <br>
+Type: POST <br>
+Path: "parse/functions/getUserCharityData" <br>
+headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
