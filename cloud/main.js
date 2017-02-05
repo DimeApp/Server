@@ -107,7 +107,7 @@ Parse.Cloud.define('updateUserBalance', function(request, response){
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
   userQuery.get(user.id, {useMasterKey: true}).then(function(user){
-    var currentBalance = user.has('balance') ? user.get('balanace') : 0;
+    var currentBalance = user.has('balance') ? user.get('balance') : 0;
     var updatedBalance = parseFloat(currentBalance) + parseFloat(balance);
     user.set('balance', updatedBalance);
     return user.save(null, {useMasterKey: true}).then(function(user){
