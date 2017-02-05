@@ -71,7 +71,7 @@ Parse.Cloud.define('getUserCharityList', function(request, response){
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
   userQuery.get(user.id, {sessionToken: user.getSessionToken()}).then(function(user){
-    var relation = user.relation('user');
+    var relation = user.relation('charities');
     var query = relation.query();
     return query.find({sessionToken: user.getSessionToken()}).then(function (charities){
       return charities;
