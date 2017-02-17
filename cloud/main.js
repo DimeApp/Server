@@ -184,6 +184,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
   query.get(user.id).then(function(user){
     return user.get('public_token');
   });
+  response.success("Great");
   // .then(function(public_token){
   //   var public_token = parseString(public_token);
 
