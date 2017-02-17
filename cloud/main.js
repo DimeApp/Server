@@ -1,16 +1,5 @@
-// var plaid = require('plaid');
+
 require('isomorphic-fetch')
-//
-// var PLAID_CLIENT_ID = process.env.client_id;
-// var PLAID_SECRET = process.env.secret;
-//
-// var plaidClient =
-//     new plaid.Client(PLAID_CLIENT_ID, PLAID_SECRET, plaid.environments.tartan);
-//
-// Parse.Cloud.define('getTransactions', function(request,response){
-//       const user = request.user;
-//
-//     });
 
 Parse.serverURL = process.env.SERVER_URL
 
@@ -103,7 +92,7 @@ Parse.Cloud.define('getUserBalance', function(request, response){
 
 Parse.Cloud.define('updateUserBalance', function(request, response){
   const user = request.user;
-  const balance = request.balance;
+  const balance = request.params.balance;
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
   userQuery.get(user.id).then(function(user){
@@ -161,6 +150,25 @@ plaidClient.addAuthUser('ins_100046', {
 });
 
 });
+
+
+
+//real user auth for plaid
+Parse.Cloud.define('storePlaidPublicToken', function(request, response){
+  const public_token = request.public_token;
+  const user = request.user;
+
+  if(user == null){
+    response.error('Either no session token or session token has expired');
+  }
+  user.set('public_token', request.public_token)
+  user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+    response.success();
+  });
+});
+
+
+
 
 //    parse/login
 //    parse/functions/getTransactions

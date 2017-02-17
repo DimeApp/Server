@@ -6,7 +6,7 @@ var plaid = require('plaid');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
-var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI || "mongodb://heroku_b6s44z1h:8kv0eloe9v9drc0q16mu3mglcm@ds139979.mlab.com:39979/heroku_b6s44z1h";
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
@@ -29,7 +29,9 @@ var api = new ParseServer({
 
 var app = express();
 
-var plaidClient = new plaid.Client(process.env.client_id, process.env.secret, plaid.environments.tartan);
+
+
+var plaidClient = new plaid.Client(process.env.client_id , process.env.secret, plaid.environments.tartan);
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
