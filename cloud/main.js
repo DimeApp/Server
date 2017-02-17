@@ -186,12 +186,12 @@ Parse.Cloud.define('getTransactions', function(request, response){
   }).then(function(public_token){
     var public_token = parseString(public_token);
 
-    plaidClient.exchangeToken(public_token, function(err,res) {
-      var access_token = res.access_token;
-      return access_token;
-      response.success(res);
-
-    });
+    // plaidClient.exchangeToken(public_token, function(err,res) {
+    //   var access_token = res.access_token;
+    //   return access_token;
+    //   response.success(res);
+    // });
+    return public_token;
   });
 });
 
