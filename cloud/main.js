@@ -1,5 +1,8 @@
 
 require('isomorphic-fetch')
+var plaid = require('plaid');
+
+var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
 
 Parse.serverURL = process.env.SERVER_URL
 
@@ -112,12 +115,6 @@ Parse.Cloud.define('updateUserBalance', function(request, response){
   });
 
 });
-
-var plaid = require('plaid');
-
-// Initialize a client
-var plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan);
-
 
 //  url/parse/functions/userAccessToken
 
