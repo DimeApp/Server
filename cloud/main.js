@@ -189,7 +189,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
     // plaidClient.getConnectUser(access_token, account_id, function(err,resp) {
     //   response.success(resp);
     // });
-  });
+//  });
   /*
   plaidClient.getConnectUser(access_token, function(err,resp) {
     response.success(resp);
