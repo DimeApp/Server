@@ -165,8 +165,9 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
   }
   user.set('public_token', public_token)
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-    response.success("SUCK IT");
+    response.success("SuccessUCK IT");
   });
+  response.console.error(error);
 });
 
 
