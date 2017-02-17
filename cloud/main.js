@@ -181,13 +181,14 @@ Parse.Cloud.define('getTransactions', function(request, response){
 
   const user = request.user;
   const public_token = request.public_token;
-  const account_id = 'YzzrzBrO9OSzo6BXwAvVuL5dmMKMqkhOoEqeo';
+
   plaidClient.exchangeToken(public_token, function(err,resp) {
     const access_token = res.access_token;
-
-    plaidClient.getConnectUser(access_token, function(err,resp) {
-      response.success(resp);
-    });
+    console.log(res.access_token);
+    // const account_id = 'YzzrzBrO9OSzo6BXwAvVuL5dmMKMqkhOoEqeo';
+    // plaidClient.getConnectUser(access_token, account_id, function(err,resp) {
+    //   response.success(resp);
+    // });
   });
   /*
   plaidClient.getConnectUser(access_token, function(err,resp) {
