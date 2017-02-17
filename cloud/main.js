@@ -186,25 +186,25 @@ Parse.Cloud.define('getTransactions', function(request, response){
 
 
 // Sebastian's Stuff
-Parse.Cloud.define('getUserCharityData', function(request, response){
-  const user = request.user;
-  const User = Parse.Object.extend('User');
-  const ucd = Parse.Object.extend('userCharity_data');
-  const dataQuery = new Parse.Query(ucd);
-  dataQuery.get(ucd.then(function(){
-    var relation = user.relation('charities');
-    var query = relation.query();
-    return query.find({sessionToken: user.getSessionToken()}).then(function (charities){
-      return charities;
-    });
-  }).then(function(charities){
-    response.success({error: false, charities: charities});
-  }, function(error){
-    console.error(error);
-    response.success({error: true, message: error});
-  });
-
-});
+// Parse.Cloud.define('getUserCharityData', function(request, response){
+//   const user = request.user;
+//   const User = Parse.Object.extend('User');
+//   const ucd = Parse.Object.extend('userCharity_data');
+//   const dataQuery = new Parse.Query(ucd);
+//   dataQuery.get(ucd.then(function(){
+//     var relation = user.relation('charities');
+//     var query = relation.query();
+//     return query.find({sessionToken: user.getSessionToken()}).then(function (charities){
+//       return charities;
+//     });
+//   }).then(function(charities){
+//     response.success({error: false, charities: charities});
+//   }, function(error){
+//     console.error(error);
+//     response.success({error: true, message: error});
+//   });
+//
+// });
 
 
 
