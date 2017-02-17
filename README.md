@@ -3,7 +3,7 @@
 ### USER FUNCTIONS
 Function: Sign Up New User <br>
 Type: POST <br>
-Path: "parse/user" <br>
+Path: "parse/users" <br>
 headers: ["X-Parse-Application-Id": APP_ID] <br>
 body: ["username": String, "password": String] <br>
 
@@ -28,7 +28,6 @@ headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_tok
 
 
 ### CHARITY FUNCTIONS
-
 Function: Add New Charity for User <br>
 Type: POST <br>
 Path: "parse/functions/addCharity" <br>
@@ -45,7 +44,6 @@ Function: Get Charities for User <br>
 Type: POST <br>
 Path: "parse/functions/getUserCharityList" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
-body: ["charityId": String] <br>
 
 Function: Get all Charities <br>
 Type: POST <br>
@@ -57,3 +55,15 @@ Function: Get all userCharity relationships for User <br>
 Type: POST <br>
 Path: "parse/functions/getUserCharityData" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
+
+
+### BALANCE FUNCTIONS
+Function: Get User Balance <br>
+Type: POST <br>
+Path: "parse/functions/getUserBalance" <br>
+headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
+
+Function Update User Balance <br>
+Type: POST <br>
+Path: "parse/functions/updateUserBalance" <br>
+body: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>

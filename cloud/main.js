@@ -44,7 +44,8 @@ Parse.Cloud.define('removeCharity', function(request, response){
   charityQuery.get(charityId).then(function(charity){
     const relation = user.relation('charities');
     relation.remove(charity);
-    return user.save(null, {useMasterKey: true});
+
+    return user.save(null, {sessionToken: user.getSessionToken()});
   }).then(function(user){
     response.success('Save successful');
   }, function(error){
@@ -77,7 +78,7 @@ Parse.Cloud.define('getUserCharityList', function(request, response){
 
 Parse.Cloud.define('getUserBalance', function(request, response){
   const user = request.user;
-  
+
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
   userQuery.get(user.id).then(function(user){
@@ -96,10 +97,11 @@ Parse.Cloud.define('updateUserBalance', function(request, response){
   const balance = request.params.balance;
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
-  userQuery.get(user.id).then(function(user){
-    var updatedBalance = parseFloat(user.get('balance')) + parseFloat(balance);
+  userQuery.get(user.id, {useMasterKey: true}).then(function(user){
+    var currentBalance = user.has('balance') ? user.get('balance') : 0;
+    var updatedBalance = parseFloat(currentBalance) + parseFloat(balance);
     user.set('balance', updatedBalance);
-    return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+    return user.save(null, {useMasterKey: true}).then(function(user){
       return user.get('balance');
     });
   }).then(function(balance){
@@ -201,7 +203,7 @@ Parse.Cloud.define('getUserCharityData', function(request, response){
     console.error(error);
     response.success({error: true, message: error});
   });
-  
+
 });
 
 
