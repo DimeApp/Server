@@ -177,7 +177,6 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 //    parse/functions/getTransactions
 
 Parse.Cloud.define('getTransactions', function(request, response){
-  // Make it so we use the public_token to exchange for the access_token
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
@@ -192,6 +191,16 @@ Parse.Cloud.define('getTransactions', function(request, response){
 //    });
 
   });
+});
+
+Parse.Cloud.defeine('exchangeToken', function(request, response) {
+  const public_token = request.params.public_token;
+  const user = request.user;
+  plaidClient.exchangeToken(public_token, function(err, res) {
+    var access_token = res.access_token;
+
+    response.success(access_token);
+  })
 });
 
 //  plaidClient.getConnectUser(access_token, function(err,resp) {
