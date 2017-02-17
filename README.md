@@ -56,6 +56,12 @@ Type: POST <br>
 Path: "parse/functions/getUserCharityData" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
 
+Function: Post plaid public token <br>
+Type: POST <br>
+Path: "parse/functions/storePlaidPublicToken" <br>
+headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
+body: ["public_token": String] <br>
+
 
 ### BALANCE FUNCTIONS
 Function: Get User Balance <br>
