@@ -193,7 +193,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
   });
 });
 
-Parse.Cloud.defeine('exchangeToken', function(request, response) {
+Parse.Cloud.define('exchangeToken', function(request, response) {
   const public_token = request.params.public_token;
   const user = request.user;
   plaidClient.exchangeToken(public_token, function(err, res) {
