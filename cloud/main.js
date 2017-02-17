@@ -43,8 +43,8 @@ Parse.Cloud.define('removeCharity', function(request, response){
   const charityQuery = new Parse.Query(Charity);
   charityQuery.get(charityId).then(function(charity){
     const relation = user.relation('charities');
-    relation.remoove(charity);
-    return user.save(null, {sessionToken: user.getSessionToken()});
+    relation.remove(charity);
+    return user.save(null, {useMasterKey: true});
   }).then(function(user){
     response.success('Save successful');
   }, function(error){
@@ -77,6 +77,7 @@ Parse.Cloud.define('getUserCharityList', function(request, response){
 
 Parse.Cloud.define('getUserBalance', function(request, response){
   const user = request.user;
+  
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
   userQuery.get(user.id).then(function(user){
@@ -179,6 +180,28 @@ Parse.Cloud.define('getTransactions', function(request, response){
   plaidClient.getConnectUser(access_token, function(err,resp) {
     response.success(resp);
   });
+});
+
+
+// Sebastian's Stuff
+Parse.Cloud.define('getUserCharityData', function(request, response){
+  const user = request.user;
+  const User = Parse.Object.extend('User');
+  const ucd = Parse.Object.extend('userCharity_data');
+  const dataQuery = new Parse.Query(ucd);
+  dataQuery.get(ucd.then(function(){
+    var relation = user.relation('charities');
+    var query = relation.query();
+    return query.find({sessionToken: user.getSessionToken()}).then(function (charities){
+      return charities;
+    });
+  }).then(function(charities){
+    response.success({error: false, charities: charities});
+  }, function(error){
+    console.error(error);
+    response.success({error: true, message: error});
+  });
+  
 });
 
 
