@@ -177,8 +177,11 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 //    parse/functions/getTransactions
 
 Parse.Cloud.define('getTransactions', function(request, response){
+  // Make it so we use the public_token to exchange for the access_token
+
   var user = request.user;
-  var access_token = user.get('backAccessToken');
+  var public_token = request.public_token;
+  var access_token = plaidClient.exchangeToken(public_token);
   plaidClient.getConnectUser(access_token, function(err,resp) {
     response.success(resp);
   });
