@@ -158,7 +158,7 @@ plaidClient.addAuthUser('ins_100046', {
 
 //real user auth for plaid
 Parse.Cloud.define('storePlaidPublicToken', function(request, response){
-  const public_token = request.public_token;
+  const public_token = request.params.public_token;
   const user = request.user;
   if(user == null){
     response.error('Either no session token or session token has expired');
