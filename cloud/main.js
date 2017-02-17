@@ -211,7 +211,7 @@ Parse.Cloud.define('exchangeToken', function(request, response) {
       });
     }
   });
-});;
+});
 
 //  plaidClient.getConnectUser(access_token, function(err,resp) {
 //    response.success(resp);
