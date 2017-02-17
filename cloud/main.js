@@ -186,7 +186,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
     response.success(public_token);
     return null;
   });
-  response.error("Damn");
+  
   // .then(function(public_token){
   //   var public_token = parseString(public_token);
 
