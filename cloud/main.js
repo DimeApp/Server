@@ -164,9 +164,9 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
   if(user == null){
     response.error('Either no session token or session token has expired');
   }
-  user.set('public_token', request.public_token)
+  user.set('public_token', public_token)
   user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-    response.success();
+    response.success("SUCK IT");
   });
 });
 
