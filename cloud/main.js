@@ -182,9 +182,9 @@ Parse.Cloud.define('getTransactions', function(request, response){
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
-    var public_token_a = user.get('public_token');
-    var public_token = parseString(public_token_a);
+    var public_token = user.get('public_token');
     response.success(public_token);
+    return null;
   });
   response.error("Damn");
   // .then(function(public_token){
