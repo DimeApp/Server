@@ -185,8 +185,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
     return user.get('public_token');
   }).then(function(public_token){
     response.succes({public_token: public_token});
-  }
-  });
+  });  
 
   console.log('Public Token: ' + public_token);
 
