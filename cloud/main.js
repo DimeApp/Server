@@ -182,12 +182,14 @@ Parse.Cloud.define('getTransactions', function(request, response){
   const user = request.user;
   const public_token = request.public_token;
   const account_id = 'YzzrzBrO9OSzo6BXwAvVuL5dmMKMqkhOoEqeo';
-  const access_token = plaidClient.exchangeToken(public_token, account_id);
+  plaidClient.exchangeToken(public_token, function(err,resp) {
+    response.success("Yeah! Fuck!")
+  });
+  /*
   plaidClient.getConnectUser(access_token, function(err,resp) {
     response.success(resp);
-  });
+  });*/
 });
-
 
 // Sebastian's Stuff
 // Parse.Cloud.define('getUserCharityData', function(request, response){
