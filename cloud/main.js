@@ -188,15 +188,11 @@ Parse.Cloud.define('getTransactions', function(request, response){
 
     plaidClient.exchangeToken(public_token, function(err,res) {
       var access_token = res.access_token;
-
-        plaidClient.getConnectUser(access_token, function(err, res) {
-          response.success(res);
-        });
+      return access_token;
+      response.success(res);
 
     });
-
   });
-
 });
 
 
