@@ -207,7 +207,7 @@ Parse.Cloud.define('getLastTransaction', function(request, response) {
         return plaidClient.getConnectUser(access_token, {
           start_date: date,
         }, function(err, res) {
-          response.success(res);
+          response.success(date);
         });
       });
     } else {
