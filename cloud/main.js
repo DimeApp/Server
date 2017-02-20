@@ -193,6 +193,29 @@ Parse.Cloud.define('getTransactions', function(request, response){
   });
 });
 
+Parse.Cloud.define('getLastTransaction', function(request, response) {
+  const user = request.user;
+  const User = Parse.Object.extend('User');
+  const query = new Parse.Query(User);
+  query.get(user.id).then(function(user){
+    var public_token = user.get('public_token');
+    if (public token != null) {
+      plaidClient.exchangeToken(public_token, function(err, res){
+        var access_token = res.access_token;
+        var date = new Date();
+        date.setDatE(date.getDate()-1);
+        return plaidClinet.getConnectUser(access_token, {
+          start_date: date,
+        }, function(err, res) {
+          response.success(res);
+        });
+      });
+    } else {
+      return response.error("Sad.");
+    }
+  });
+});
+
 
 
 //  plaidClient.getConnectUser(access_token, function(err,resp) {
