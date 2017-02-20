@@ -206,7 +206,7 @@ Parse.Cloud.define('getLastTransaction', function(request, response) {
         var date = new Date();
         date.setDate(date.getDate()-1);
         return plaidClient.getConnectUser(access_token, {
-          gte: '30 days ago',
+          gte: '1 day ago',
         }, function(err, res) {
           response.success(res);
         });
