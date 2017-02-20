@@ -187,9 +187,9 @@ Parse.Cloud.define('getTransactions', function(request, response){
         response.success(res);
       });
     });
-  } else {
-      return response.error("no");
-  }
+    } else {
+      return response.error("Oh heck nah! Get outta here boyo!");
+    }
   });
 });
 
