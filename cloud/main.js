@@ -123,7 +123,7 @@ Parse.Cloud.define('updateUserBalance', function(request, response){
 Parse.Cloud.define('userAccessToken', function(request, response){
   var user = request.user;
 
-plaidClient.addAuthUser('ins_100046', {
+plaidClient.addAuthUser('wells', {
   username: 'plaid_test',
   password: 'plaid_good',
 }, function(err, mfaResponse, resp) {
@@ -154,6 +154,8 @@ plaidClient.addAuthUser('ins_100046', {
 
 
 //real user auth for plaid
+// Plaid function to store public_token to User upon successful bank authentication
+// via Plaid Link
 Parse.Cloud.define('storePlaidPublicToken', function(request, response){
   const public_token = request.params.public_token;
   const user = request.user;
@@ -167,22 +169,25 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
   response.console.error(error);
 });
 
-
-
-
 //    parse/login
 //    parse/functions/getTransactions
 
+// Plaid function to exchange Users public_token for their access_token, and then
+// generate transaction history.
 Parse.Cloud.define('getTransactions', function(request, response){
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
     var public_token = user.get('public_token');
+    if (public_token != null) {
     plaidClient.exchangeToken(public_token, function(err,res){
       var access_token = res.access_token;
       return plaidClient.getConnectUser(access_token, function(err, res) {
         response.success(res);
+    } else {
+      return response.error(err);
+    }
       });
     });
   });
