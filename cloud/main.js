@@ -155,7 +155,7 @@ plaidClient.addAuthUser('wells', {
 
 //real user auth for plaid
 // Plaid function to store public_token to User upon successful bank authentication
-// via Plaid Link
+// via Plaid Link. Sets bank_auth to true.
 Parse.Cloud.define('storePlaidPublicToken', function(request, response){
   const public_token = request.params.public_token;
   const user = request.user;
@@ -163,6 +163,7 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
     response.error('Either no session token or session token has expired');
   }
   user.set('public_token', public_token)
+  user.set('hasBankAuthenticated', true)
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
     response.success("SuccessUCK IT");
   });
@@ -217,24 +218,15 @@ Parse.Cloud.define('getLastTransaction', function(request, response) {
   });
 });
 
-Parse.Cloud.define('hasBankAuthenticated', function(request, response) {
+Parse.Cloud.define('checkBankAuth', function(request, response) {
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
 
-  //const bank_auth = false;
-  //response.success(bank_auth);
   query.get(user.id).then(function(user){
-     var bank_auth = user.get('bank_auth');
-     return response.success(bank_auth);
+     var hasBankAuthenticated = user.get('hasBankAuthenticated');
+     return response.success(hasBankAuthenticated);
    });
-
-
-  // user.set('bank_auth', bank_auth)
-  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-  //   response.success("SuccessUCK IT");
-  // });
-  // response.console.error(error);
 });
 
 
