@@ -193,6 +193,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
   });
 });
 
+// Right now all this does is return a date
 Parse.Cloud.define('getLastTransaction', function(request, response) {
   const user = request.user;
   const User = Parse.Object.extend('User');
@@ -205,9 +206,9 @@ Parse.Cloud.define('getLastTransaction', function(request, response) {
         var date = new Date();
         date.setDate(date.getDate()-1);
         return plaidClient.getConnectUser(access_token, {
-          start_date: date,
+          gte: '30 days ago',
         }, function(err, res) {
-          response.success(date);
+          response.success(res);
         });
       });
     } else {
