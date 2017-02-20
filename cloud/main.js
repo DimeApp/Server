@@ -179,12 +179,12 @@ Parse.Cloud.define('getTransactions', function(request, response){
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
     var public_token = user.get('public_token');
-    return plaidClient.exchangeToken(public_token, function(err,res){
+    plaidClient.exchangeToken(public_token, function(err,res){
       var access_token = res.access_token;
-      response.success(access_token);
-      // return null;
+      return plaidClient.getConnectUser(access_token, function(err, res) {
+        response.success(res);
+      });
     });
-
   });
 });
 
