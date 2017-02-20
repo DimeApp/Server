@@ -199,7 +199,7 @@ Parse.Cloud.define('getLastTransaction', function(request, response) {
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
     var public_token = user.get('public_token');
-    if (public token != null) {
+    if (public_token != null) {
       plaidClient.exchangeToken(public_token, function(err, res){
         var access_token = res.access_token;
         var date = new Date();
