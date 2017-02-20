@@ -217,6 +217,20 @@ Parse.Cloud.define('getLastTransaction', function(request, response) {
   });
 });
 
+Parse.Cloud.define('hasBankAuthenticated', function(request, response) {
+  const user = request.user;
+  const User = Parse.Object.exten('User');
+  const query = new Parse.Query(User);
+  query.get(user.id).then(function(user){
+    var bank_auth = user.get('bank_auth');
+    return bank_auth;
+  });
+  // user.set('bank_auth', bank_auth)
+  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+  //   response.success("SuccessUCK IT");
+  // });
+  // response.console.error(error);
+});
 
 
 //  plaidClient.getConnectUser(access_token, function(err,resp) {
