@@ -221,10 +221,15 @@ Parse.Cloud.define('hasBankAuthenticated', function(request, response) {
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
-  query.get(user.id).then(function(user){
-    var bank_auth = false;
-    return bank_auth;
-  });
+
+  const bank_auth = false;
+  response.success(bank_auth);
+  // query.get(user.id).then(function(user){
+  //   var bank_auth = false;
+  //   return bank_auth;
+  // });
+
+
   // user.set('bank_auth', bank_auth)
   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
   //   response.success("SuccessUCK IT");
