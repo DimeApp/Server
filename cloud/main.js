@@ -225,7 +225,7 @@ Parse.Cloud.define('hasBankAuthenticated', function(request, response) {
   //const bank_auth = false;
   //response.success(bank_auth);
   query.get(user.id).then(function(user){
-     var bank_auth = false;
+     var bank_auth = user.get('bank_auth');
      return response.success(bank_auth);
    });
 
