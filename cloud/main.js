@@ -288,8 +288,6 @@ Parse.Cloud.define('checkBankAuth', function(request, response) {
 
 // function to get justin 10pc chicken mcnugget
 
-
-
 /*-----------------------------------------------*/
 /*-----------------------------------------------*/
 /*-----------------HELPER-METHODS----------------*/
