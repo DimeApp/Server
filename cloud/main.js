@@ -4,6 +4,8 @@ var plaid = require('plaid');
 
 var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
 
+var stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
+
 Parse.serverURL = process.env.SERVER_URL
 
 Parse.Cloud.define('addCharity', function(request, response){
@@ -200,10 +202,19 @@ Parse.Cloud.define('stripeToken', function(request,response){
       });
     });
 
-
-
+});
 
 });
+
+
+
+Parse.Cloud.define('chargeTheCard', function(request, response){
+
+  // stripe.charges.create({
+  //   amount: 1500,
+  //   currency: "usd",
+  //   customer: customerId // Previously stored, then retrieved
+  // });
 
 });
 
