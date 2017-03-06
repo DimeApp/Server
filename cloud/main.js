@@ -211,7 +211,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
 Parse.Cloud.define('chargeTheCard', function(request, response){
 
   // stripe.charges.create({
-  //   amount: 1500,
+  //   amount: 10,
   //   currency: "usd",
   //   customer: customerId // Previously stored, then retrieved
   // });
@@ -276,3 +276,21 @@ Parse.Cloud.define('checkBankAuth', function(request, response) {
      return response.success(hasBankAuthenticated);
    });
 });
+
+/*-----------------------------------------------*/
+/*-----------------HELPER-METHODS----------------*/
+/*-----------------------------------------------*/
+/*-----------------------------------------------*/
+
+// function to check rounded balance is at 10 needed
+
+// function to round up the money
+
+// function to get justin 10pc chicken mcnugget
+
+
+
+/*-----------------------------------------------*/
+/*-----------------------------------------------*/
+/*-----------------HELPER-METHODS----------------*/
+/*-----------------------------------------------*/
