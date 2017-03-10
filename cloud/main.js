@@ -242,14 +242,14 @@ Parse.Cloud.define('getTransactions', function(request, response){
   });
 });
 
-// Right now all this does is return a date
-Parse.Cloud.define('getLastTransaction', function(request, response) {
-  getTransactions(request , function(err,res){
-    var transactions = res.result.transactions;
-    return transactions;
-  });
-
-};
+// // Right now all this does is return a date
+// Parse.Cloud.define('getLastTransaction', function(request, response) {
+//   getTransactions(request , function(err,res){
+//     var transactions = res.result.transactions;
+//     return transactions;
+//   });
+//
+// };
 
 
 Parse.Cloud.define('checkBankAuth', function(request, response) {
