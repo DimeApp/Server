@@ -26,6 +26,8 @@ Type: POST <br>
 Path: "parse/functions/getTransactions" <br>
 headers: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token] <br>
 
+### Stripe Coming Soon
+
 
 ### CHARITY FUNCTIONS
 Function: Add New Charity for User <br>
