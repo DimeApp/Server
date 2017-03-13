@@ -4,7 +4,8 @@ var plaid = require('plaid');
 
 var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
 
-// var stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
+var stripe = require('stripe');
+// ("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 
 Parse.serverURL = process.env.SERVER_URL
 
