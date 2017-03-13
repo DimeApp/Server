@@ -4,7 +4,7 @@ var plaid = require('plaid');
 
 var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
 
-var stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
+// var stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 
 Parse.serverURL = process.env.SERVER_URL
 
@@ -184,39 +184,39 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 });
 
 
+//
+//
+// Parse.Cloud.define('stripeToken', function(request,response){
+//
+//   const user = request.user;
+//
+//   query.get(user.id).then(function(user){
+//     var public_token = user.get('public_token');
+//     if (public_token != null) {
+//
+//       plaidClient.exchangeToken(public_token,
+//                               '[Plaid Link account_id]',
+//                               function(err, res) {
+//       var bankAccountToken = res.stripe_bank_account_token;
+//         response.success(res);
+//       });
+//     });
+//
+// });
+//
+// });
+//
 
-
-Parse.Cloud.define('stripeToken', function(request,response){
-
-  const user = request.user;
-
-  query.get(user.id).then(function(user){
-    var public_token = user.get('public_token');
-    if (public_token != null) {
-
-      plaidClient.exchangeToken(public_token,
-                              '[Plaid Link account_id]',
-                              function(err, res) {
-      var bankAccountToken = res.stripe_bank_account_token;
-        response.success(res);
-      });
-    });
-
-});
-
-});
-
-
-
-Parse.Cloud.define('chargeTheCard', function(request, response){
-
-  // stripe.charges.create({
-  //   amount: 10,
-  //   currency: "usd",
-  //   customer: customerId // Previously stored, then retrieved
-  // });
-
-});
+//
+// Parse.Cloud.define('chargeTheCard', function(request, response){
+//
+//   // stripe.charges.create({
+//   //   amount: 10,
+//   //   currency: "usd",
+//   //   customer: customerId // Previously stored, then retrieved
+//   // });
+//
+// });
 
 //    parse/login
 //    parse/functions/getTransactions
@@ -242,29 +242,15 @@ Parse.Cloud.define('getTransactions', function(request, response){
   });
 });
 
-// Right now all this does is return a date
-Parse.Cloud.define('getLastTransaction', function(request, response) {
-  const user = request.user;
-  const User = Parse.Object.extend('User');
-  const query = new Parse.Query(User);
-  query.get(user.id).then(function(user){
-    var public_token = user.get('public_token');
-    if (public_token != null) {
-      plaidClient.exchangeToken(public_token, function(err, res){
-        var access_token = res.access_token;
-        var date = new Date();
-        date.setDate(date.getDate()-1);
-        return plaidClient.getConnectUser(access_token, {
-          gte: '1 day ago',
-        }, function(err, res) {
-          response.success(res);
-        });
-      });
-    } else {
-      return response.error("Sad.");
-    }
-  });
-});
+// // Right now all this does is return a date
+// Parse.Cloud.define('getLastTransaction', function(request, response) {
+//   getTransactions(request , function(err,res){
+//     var transactions = res.result.transactions;
+//     return transactions;
+//   });
+//
+// };
+
 
 Parse.Cloud.define('checkBankAuth', function(request, response) {
   const user = request.user;
