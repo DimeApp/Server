@@ -187,25 +187,25 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 
 //
 //
-// Parse.Cloud.define('stripeToken', function(request,response){
-//
-//   const user = request.user;
-//
-//   query.get(user.id).then(function(user){
-//     var public_token = user.get('public_token');
-//     if (public_token != null) {
-//
-//       plaidClient.exchangeToken(public_token,
-//                               '[Plaid Link account_id]',
-//                               function(err, res) {
-//       var bankAccountToken = res.stripe_bank_account_token;
-//         response.success(res);
-//       });
-//     });
-//
-// });
-//
-// });
+Parse.Cloud.define('stripeToken', function(request,response){
+
+  const user = request.user;
+
+  query.get(user.id).then(function(user){
+    var public_token = user.get('public_token');
+    if (public_token != null) {
+
+      plaidClient.exchangeToken(public_token,
+                              '[Plaid Link account_id]',
+                              function(err, res) {
+      var bankAccountToken = res.stripe_bank_account_token;
+        response.success(res);
+      });
+    });
+
+});
+
+});
 //
 
 //
@@ -245,13 +245,13 @@ Parse.Cloud.define('getTransactions', function(request, response){
 });
 
 // // Right now all this does is return a date
-Parse.Cloud.define('getLastTransaction', function(request, response) {
-  getTransactions(request , function(err,res){
-    var transactions = res.result.transactions;
-    return transactions;
-  });
-
-};
+// Parse.Cloud.define('getLastTransaction', function(request, response) {
+//   getTransactions(request , function(err,res){
+//     var transactions = res.result.transactions;
+//     return transactions;
+//   });
+//
+// };
 
 
 Parse.Cloud.define('checkBankAuth', function(request, response) {
