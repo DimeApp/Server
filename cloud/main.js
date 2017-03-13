@@ -4,7 +4,7 @@ var plaid = require('plaid');
 
 var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
 
-var stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
+// var stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 
 Parse.serverURL = process.env.SERVER_URL
 
@@ -223,6 +223,7 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 
 // Plaid function to exchange Users public_token for their access_token, and then
 // generate transaction history.
+
 Parse.Cloud.define('getTransactions', function(request, response){
   const user = request.user;
   const User = Parse.Object.extend('User');
