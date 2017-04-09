@@ -162,11 +162,6 @@ plaidClient.addAuthUser('wells', {
 });
 
 
-
-
-
-
-
 //real user auth for plaid
 // Plaid function to store public_token to User upon successful bank authentication
 // via Plaid Link. Sets bank_auth to true.
@@ -179,7 +174,7 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
   user.set('public_token', public_token)
   user.set('hasBankAuthenticated', true)
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-    response.success("SuccessUCK IT");
+    response.success("Success");
   });
   response.console.error(error);
 });
