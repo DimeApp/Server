@@ -81,17 +81,17 @@ Parse.Cloud.define('getUserCharityList', function(request, response){
 
 });
 
-
-Parse.Cloud.define('reorderCharityList',function(request,response){
-
-});
+//
+//
+// Parse.Cloud.define('reorderCharityList',function(request,response){
+//
+// });
 
 
 
 
 Parse.Cloud.define('getUserBalance', function(request, response){
   const user = request.user;
-
   const User = Parse.Object.extend('User');
   const userQuery = new Parse.Query(User);
   userQuery.get(user.id).then(function(user){
