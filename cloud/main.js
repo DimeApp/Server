@@ -182,25 +182,24 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 
 //
 //
-// Parse.Cloud.define('stripeToken', function(request,response){
-//
-//   const user = request.user;
-//
-//   query.get(user.id).then(function(user){
-//     var public_token = user.get('public_token');
-//     if (public_token != null) {
-//
-//       plaidClient.exchangeToken(public_token,
-//                               '[Plaid Link account_id]',
-//                               function(err, res) {
-//       var bankAccountToken = res.stripe_bank_account_token;
-//         response.success(res);
-//       });
-//     });
-//
-// });
-//
-// });
+Parse.Cloud.define('stripeToken', function(request,response){
+
+  const user = request.user;
+
+  query.get(user.id).then(function(user){
+    var public_token = user.get('public_token');
+    if (public_token != null) {
+
+      plaidClient.exchangeToken(public_token,
+                              '[Plaid Link account_id]',
+                              function(err, res) {
+      var bankAccountToken = res.stripe_bank_account_token;
+        response.success(res);
+      });
+    });
+
+});
+});
 //
 
 //
@@ -264,6 +263,13 @@ Parse.Cloud.define('checkBankAuth', function(request, response) {
 /*-----------------HELPER-METHODS----------------*/
 /*-----------------------------------------------*/
 /*-----------------------------------------------*/
+
+// https://plaid.com/docs/api/#webhooks VERY HELPFUL
+Parse.Cloud.define('roundLastTransaction'){
+  // run getTransactions.... get last transaction set transaction value.. and use this to get charge
+  const transactionValue = request.transactionValue;
+  const charge = Math.ceil(transactionValue) - transactionValue
+}
 
 // function to check rounded balance is at 10 needed
 
