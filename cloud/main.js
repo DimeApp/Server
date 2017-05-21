@@ -265,11 +265,11 @@ Parse.Cloud.define('checkBankAuth', function(request, response) {
 /*-----------------------------------------------*/
 
 // https://plaid.com/docs/api/#webhooks VERY HELPFUL
-Parse.Cloud.define('roundLastTransaction'){
-  // run getTransactions.... get last transaction set transaction value.. and use this to get charge
-  const transactionValue = request.transactionValue;
-  const charge = Math.ceil(transactionValue) - transactionValue
-}
+// Parse.Cloud.define('roundLastTransaction'){
+//   // run getTransactions.... get last transaction set transaction value.. and use this to get charge
+//   const transactionValue = request.transactionValue;
+//   const charge = Math.ceil(transactionValue) - transactionValue
+// }
 
 // function to check rounded balance is at 10 needed
 
