@@ -202,12 +202,14 @@ Parse.Cloud.define('stripeToken', function(request,response){
            response.success(public_token);
            if (public_token != null) {
 
-             plaidClient.exchangeToken(public_token,
-                                     accountDictionary["result"]["accounts"][0]["_id"],
-                                     function(err, resu) {
-             var bankAccountToken = resu.stripe_bank_account_token;
-               response.success(resu);
-             });
+                plaidClient.exchangePublicToken({public_token}, function(err, res) {
+                  var accessToken = res.access_token;
+                  response.success(accessToken);
+                  // Generate a bank account token
+                  plaidClient.createStripeToken(accessToken, {accountDictionary["result"]["accounts"][0]["_id"]}, function(err, res) {
+                var bankAccountToken = res.stripe_bank_account_token;
+              });
+            });
            }else {
              response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
            };
