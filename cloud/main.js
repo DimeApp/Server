@@ -184,7 +184,7 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 //
 Parse.Cloud.define('stripeToken', function(request,response){
 
-  const user = request.user;
+  const userConst = request.user;
 
   Parse.Cloud.run("getTransactions",{user:request.user},{
 
