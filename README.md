@@ -7,6 +7,7 @@ Path: "parse/users" <br>
 headers: ["X-Parse-Application-Id": APP_ID] <br>
 body: ["username": String, "password": String] <br>
 
+
 Function: Log In User <br>
 Type: GET <br>
 Path: "parse/login" <br>
