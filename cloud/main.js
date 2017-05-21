@@ -203,9 +203,9 @@ Parse.Cloud.define('stripeToken', function(request,response){
 
              plaidClient.exchangeToken(public_token,
                                      accountDictionary["result"]["accounts"][0]["_id"],
-                                     function(err, res) {
-             var bankAccountToken = res.stripe_bank_account_token;
-               response.success(res);
+                                     function(err, resu) {
+             var bankAccountToken = resu.stripe_bank_account_token;
+               response.success(resu);
              });
            }else {
              response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
