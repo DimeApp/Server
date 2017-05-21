@@ -207,6 +207,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
              var bankAccountToken = resu.stripe_bank_account_token;
                response.success(resu);
              });
+             response.error("time out");
            }else {
              response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
            };
