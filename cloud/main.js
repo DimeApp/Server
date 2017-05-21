@@ -187,7 +187,6 @@ Parse.Cloud.define('stripeToken', function(request,response){
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
-  var accountDictionary;
   query.get(user.id).then(function(user){
     var public_token = user.get('public_token');
     if (public_token != null) {
@@ -195,7 +194,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
       var access_token = res.access_token;
       return plaidClient.getConnectUser(access_token, function(err, res) {
         // response.success(res);
-         accountDictionary = res;
+         var accountDictionary = res;
 
          query.get(user.id).then(function(user){
            var public_token = user.get('public_token');
@@ -204,12 +203,13 @@ Parse.Cloud.define('stripeToken', function(request,response){
 
                 plaidClient.exchangePublicToken({public_token}, function(err, res) {
                   var accessToken = res.access_token;
-                  response.success(accessToken);
+                  // response.success(accessToken);
                   // Generate a bank account token
-              //     plaidClient.createStripeToken(accessToken, {}, function(err, res) {
-              //   var bankAccountToken = res.stripe_bank_account_token;
-              // });
-              
+                  plaidClient.createStripeToken(accessToken, {accountDictionary["result"]["accounts"][0]["_id"]}, function(err, res) {
+                var bankAccountToken = res.stripe_bank_account_token;
+                response.success(bankAccountToken);
+              });
+
             });
            }else {
              response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
