@@ -183,7 +183,7 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 //
 //
 Parse.Cloud.define('stripeToken', function(request,response){
-  
+
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
@@ -193,31 +193,30 @@ Parse.Cloud.define('stripeToken', function(request,response){
     plaidClient.exchangeToken(public_token, function(err,res){
       var access_token = res.access_token;
       return plaidClient.getConnectUser(access_token, function(err, res) {
-        response.success(res);
+        // response.success(res);
+        const accountDictionary = res;
       });
     });
     } else {
       return response.error("Oh heck nah! Get outta here boyo!");
     }
+  }).then(response.success(accountDictionary));
+
+
+  query.get(user.id).then(function(user){
+    var public_token = user.get('public_token');
+    if (public_token != null) {
+
+      plaidClient.exchangeToken(public_token,
+                              '[Plaid Link account_id]',
+                              function(err, res) {
+      var bankAccountToken = res.stripe_bank_account_token;
+        response.success(res);
+      });
+    }else {
+      response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
+    };
   });
-
-
-  //
-  //
-  // query.get(user.id).then(function(user){
-  //   var public_token = user.get('public_token');
-  //   if (public_token != null) {
-  //
-  //     plaidClient.exchangeToken(public_token,
-  //                             '[Plaid Link account_id]',
-  //                             function(err, res) {
-  //     var bankAccountToken = res.stripe_bank_account_token;
-  //       response.success(res);
-  //     });
-  //   }else {
-  //     response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
-  //   };
-  // });
 });
 
 
