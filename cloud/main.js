@@ -186,7 +186,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
 
   const userConst = request.user;
 
-  Parse.Cloud.run("getTransactions",{sessionToken:request.user.getSessionToken();},{
+  Parse.Cloud.run("getTransactions",{sessionToken:request.user.getSessionToken()},{
 
     success: function(result) {
       response.success(result);
