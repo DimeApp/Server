@@ -190,7 +190,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
 
     success: function(result) {
       response.success(result);
-    }
+    },
     error: function(error) {
       response.error(":(");
     }
