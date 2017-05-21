@@ -205,10 +205,11 @@ Parse.Cloud.define('stripeToken', function(request,response){
                   var accessToken = res.access_token;
                   // response.success(accessToken);
                   // Generate a bank account token
-                  plaidClient.createStripeToken(accessToken, {accountDictionary["result"]["accounts"][0]["_id"]}, function(err, res) {
-                var bankAccountToken = res.stripe_bank_account_token;
-                response.success(bankAccountToken);
-              });
+                  response.success(accountDictionary.result);
+              //     plaidClient.createStripeToken(accessToken, {accountDictionary.result}, function(err, res) {
+              //   var bankAccountToken = res.stripe_bank_account_token;
+              //   response.success(bankAccountToken);
+              // });
 
             });
            }else {
