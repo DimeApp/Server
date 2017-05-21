@@ -205,7 +205,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
                   var accessToken = resu.access_token;
                   // response.success(accessToken);
                   // Generate a bank account token
-                  response.success(res.result);
+                  response.success(res);
               //     plaidClient.createStripeToken(accessToken, {accountDictionary.result}, function(err, res) {
               //   var bankAccountToken = res.stripe_bank_account_token;
               //   response.success(bankAccountToken);
