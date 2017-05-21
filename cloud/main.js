@@ -198,7 +198,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
 
          query.get(user.id).then(function(user){
            var public_token = user.get('public_token');
-           response.success(public_token);
+          //  response.success(public_token);
            if (public_token != null) {
 
                 plaidClient.exchangePublicToken({public_token}, function(err, res) {
