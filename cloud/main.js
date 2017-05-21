@@ -182,24 +182,36 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 
 //
 //
-// Parse.Cloud.define('stripeToken', function(request,response){
-//
-//   const user = request.user;
-//
-//   query.get(user.id).then(function(user){
-//     var public_token = user.get('public_token');
-//     if (public_token != null) {
-//
-//       plaidClient.exchangeToken(public_token,
-//                               '[Plaid Link account_id]',
-//                               function(err, res) {
-//       var bankAccountToken = res.stripe_bank_account_token;
-//         response.success(res);
-//       });
-//     });
-//
-// });
-// });
+Parse.Cloud.define('stripeToken', function(request,response){
+
+  const user = request.user;
+
+  Parse.cloud.run("getTransactions",{user:request.user},{
+
+    success: function(result) {
+      response.success(result);
+    };
+
+  });
+
+
+  query.get(user.id).then(function(user){
+    var public_token = user.get('public_token');
+    if (public_token != null) {
+
+      plaidClient.exchangeToken(public_token,
+                              '[Plaid Link account_id]',
+                              function(err, res) {
+      var bankAccountToken = res.stripe_bank_account_token;
+        response.success(res);
+      });
+    }else {
+      response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
+    };
+  });
+});
+
+
 //
 
 //
