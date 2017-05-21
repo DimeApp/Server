@@ -197,11 +197,11 @@ Parse.Cloud.define('stripeToken', function(request,response){
         // response.success(res);
          accountDictionary = res;
       });
-    });
+    }).then(response.success(accountDictionary));
     } else {
       return response.error("Oh heck nah! Get outta here boyo!");
     }
-  }).then(response.success(accountDictionary));
+  });
 
 
   query.get(user.id).then(function(user){
