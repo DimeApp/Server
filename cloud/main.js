@@ -201,11 +201,11 @@ Parse.Cloud.define('stripeToken', function(request,response){
           //  response.success(public_token);
            if (public_token != null) {
 
-                plaidClient.exchangePublicToken({public_token}, function(err, res) {
-                  var accessToken = res.access_token;
+                plaidClient.exchangePublicToken({public_token}, function(err, resu) {
+                  var accessToken = resu.access_token;
                   // response.success(accessToken);
                   // Generate a bank account token
-                  response.success(accountDictionary.result);
+                  response.success(res.result);
               //     plaidClient.createStripeToken(accessToken, {accountDictionary.result}, function(err, res) {
               //   var bankAccountToken = res.stripe_bank_account_token;
               //   response.success(bankAccountToken);
