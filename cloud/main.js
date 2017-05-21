@@ -187,6 +187,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
+  var accountDictionary;
   query.get(user.id).then(function(user){
     var public_token = user.get('public_token');
     if (public_token != null) {
@@ -194,7 +195,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
       var access_token = res.access_token;
       return plaidClient.getConnectUser(access_token, function(err, res) {
         // response.success(res);
-        const accountDictionary = res;
+         accountDictionary = res;
       });
     });
     } else {
