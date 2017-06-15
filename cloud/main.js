@@ -197,7 +197,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
         var accountDictionary = res;
         // return accountDictionary;
 
-        response.success(accountDictionary);
+        res.success(accountDictionary);
 
       }));
 
