@@ -190,35 +190,36 @@ Parse.Cloud.define('stripeToken', function(request,response){
   query.get(user.id).then(function(user){
     var public_token = user.get('public_token');
     if (public_token != null) {
-    plaidClient.exchangeToken(public_token, function(err,res){
-      var access_token = res.access_token;
-      return plaidClient.getConnectUser(access_token, function(err, res) {
+    plaidClient.exchangeToken(public_token, function(err,resp){
+      var access_token = resp.access_token;
+    }).then(plaidClient.getConnectUser(access_token, function(err, res) {
         // response.success(res);
          var accountDictionary = res;
 
-         query.get(user.id).then(function(user){
-           var public_token = user.get('public_token');
-          //  response.success(public_token);
-           if (public_token != null) {
+        //  query.get(user.id).then(function(user){
+        //    var public_token = user.get('public_token');
+        //   //  response.success(public_token);
+        //    if (public_token != null) {
 
-                plaidClient.exchangePublicToken({public_token}, function(err, resu) {
-                  var accessToken = resu.access_token;
-                  // response.success(accessToken);
-                  // Generate a bank account token
-                  response.success(res);
-              //     plaidClient.createStripeToken(accessToken, {accountDictionary.result}, function(err, res) {
-              //   var bankAccountToken = res.stripe_bank_account_token;
-              //   response.success(bankAccountToken);
-              // });
-
-            });
+            //     plaidClient.exchangePublicToken({public_token}, function(err, resu) {
+            //       var accessToken = resu.access_token;
+            //       // response.success(accessToken);
+            //       // Generate a bank account token
+            //       return res;
+            //   //     plaidClient.createStripeToken(accessToken, {accountDictionary.result}, function(err, res) {
+            //   //   var bankAccountToken = res.stripe_bank_account_token;
+            //   //   response.success(bankAccountToken);
+            //   // });
+            //
+            // });
            }else {
-             response.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
+             res.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
            };
          });
 
       });
-    });
+      response.success(accountDictionary);
+    );
     } else {
       return response.error("Oh heck nah! Get outta here boyo!");
     }
