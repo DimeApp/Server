@@ -215,7 +215,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
           //  }else {
           //    res.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
           //  };
-         });
+        //  });
 
       });
       response.success(accountDictionary);
