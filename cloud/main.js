@@ -199,9 +199,10 @@ Parse.Cloud.define('stripeToken', function(request,response){
 
         response.success(accountDictionary);
 
-      })).then(
-        response.success(accountDictionary);
-      );
+      }));
+
+      response.error("ugh");
+
     });
 });
 
