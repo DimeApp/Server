@@ -217,8 +217,8 @@ Parse.Cloud.define('stripeToken', function(request,response){
           //  };
         //  });
 
-      });
-      response.success(accountDictionary);
+      }).then(
+      response.success(accountDictionary));
     );
     } else {
       return response.error("Oh heck nah! Get outta here boyo!");
