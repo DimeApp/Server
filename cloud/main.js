@@ -195,7 +195,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
     }).then(plaidClient.getConnectUser(access_token, function(err, res) {
         // response.success(res);
          var accountDictionary = res;
-
+        //  return accountDictionary;
         //  query.get(user.id).then(function(user){
         //    var public_token = user.get('public_token');
         //   //  response.success(public_token);
@@ -217,7 +217,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
           //  };
         //  });
 
-      )}).then(
+      })).then(
       response.success(accountDictionary));
 
     } else {
