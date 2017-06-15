@@ -195,7 +195,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
     }).then(plaidClient.getConnectUser(access_token, function(err, res) {
         // response.success(res);
         var accountDictionary = res;
-        return accountDictionary;
+        // return accountDictionary;
 
         response.success(accountDictionary);
 
