@@ -194,7 +194,7 @@ Parse.Cloud.define('stripeToken', function(request,response){
       var access_token = resp.access_token;
     }).then(plaidClient.getConnectUser(access_token, function(err, res) {
         // response.success(res);
-         var accountDictionary = res;
+        var accountDictionary = res;
         return accountDictionary;
         //  query.get(user.id).then(function(user){
         //    var public_token = user.get('public_token');
@@ -216,9 +216,9 @@ Parse.Cloud.define('stripeToken', function(request,response){
           //    res.error("Error on stripe, Noah call plaidPublicToken before stripeToken");
           //  };
         //  });
+        response.success(accountDictionary));
 
       })).then(
-      response.success(accountDictionary));
 
     } else {
       return response.error("Oh heck nah! Get outta here boyo!");
