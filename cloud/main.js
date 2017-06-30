@@ -182,31 +182,31 @@ Parse.Cloud.define('storePlaidPublicToken', function(request, response){
 
 //
 //
-Parse.Cloud.define('stripeToken', function(request,response){
-
-  const user = request.user;
-  const User = Parse.Object.extend('User');
-  const query = new Parse.Query(User);
-  query.get(user.id).then(function(user){
-    var public_token = user.get('public_token');
-    // if (public_token != null) {
-    plaidClient.exchangeToken(public_token, function(err,resp){
-      var access_token = resp.access_token;
-      // response.success(access_token);
-      return plaidClient.getConnectUser(access_token, function(err, res) {
-        // response.success(res);
-        var accountDictionary = res;
-        // return accountDictionary;
-
-        // response.success(accountDictionary);
-        return accountDictionary;
-
-      });
-
-      response.success(accountDictionary);
-
-    });
-});
+//Parse.Cloud.define('stripeToken', function(request,response){
+//
+//  const user = request.user;
+//  const User = Parse.Object.extend('User');
+//  const query = new Parse.Query(User);
+//  query.get(user.id).then(function(user){
+//    var public_token = user.get('public_token');
+//    // if (public_token != null) {
+//    plaidClient.exchangeToken(public_token, function(err,resp){
+//      var access_token = resp.access_token;
+//      // response.success(access_token);
+//      return plaidClient.getConnectUser(access_token, function(err, res) {
+//        // response.success(res);
+//        var accountDictionary = res;
+//        // return accountDictionary;
+//
+//        // response.success(accountDictionary);
+//        return accountDictionary;
+//
+//      });
+//
+//      response.success(accountDictionary);
+//
+//    });
+//});
 
 
 
