@@ -171,7 +171,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
         console.error(err);
         response.error(error)
     } else if (mfaResponse != null) {
-        plaidClient.stepAuthUser(mfaResponse.accesS_token, 'tomato', {},)
+        plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
         function(err, mfaRes, resp) {
             console.log(mfaRes);
             console.log(resp);
