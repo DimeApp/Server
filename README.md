@@ -14,6 +14,12 @@ Path: "parse/login" <br>
 headers: ["X-Parse-Application-Id" : APP_ID] <br>
 params: ["username": String, "password": String] <br>
 
+Function: Add User Info <br>
+Type: POST <br>
+Path: "parse/functions/addUserInfo" <br>
+headers: ["X-Parse-Application-Id" : APP_ID, "X-Parse-Session-Token:" session_token] <br>
+body: ["email": String] <br>
+
 
 ### BANKING FUNCTIONS
 Function: Store User Access Token <br>
