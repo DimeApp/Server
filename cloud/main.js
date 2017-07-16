@@ -159,20 +159,20 @@ plaidClient.addAuthUser('wells', {
 
 });
 
-//Parse.Cloud.define('addUserInfo', function(request, response) {
-//    const user = request.user;
-//    const email = request.params.email;
-//    
-//    if (email == null) {
-//        response.error('Enter an e-mail');
-//    }
-//    user.set('email', email)
-//    
-//    return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-//        response.success("Success");
-//    });
-//    response.console.error(error);
-//});
+Parse.Cloud.define('addUserInfo', function(request, response) {
+    const user = request.user;
+    const email = request.params.email;
+    
+    if (email == null) {
+        response.error('Enter an e-mail');
+    }
+    user.set('email', email)
+    
+    return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+        response.success("Success");
+    });
+    response.console.error(error);
+});
 
 
 //real user auth for plaid
