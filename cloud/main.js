@@ -1,6 +1,7 @@
 
 require('isomorphic-fetch')
 var plaid = require('plaid');
+var envvar = require('envvar');
 
 var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET     = process.env.PLAID_SECRET
