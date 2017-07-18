@@ -14,7 +14,7 @@ var PLAID_ENV        = envvar.string('PLAID_ENV', 'tartan');
 //var ACCESS_TOKEN = null;
 //var PUBLIC_TOKEN = null;
 
-var client = new plaid.Client(
+var plaidClient = new plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
   //PLAID_PUBLIC_KEY,
