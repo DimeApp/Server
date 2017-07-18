@@ -158,34 +158,34 @@ Parse.Cloud.define('userAccessToken', function(request, response){
 });
 
 //// Not sure if Works
-//Parse.Cloud.define('getPlaidToken', function(request, response) {
-//    var user = request.user;
-//    var username = request.params.bankUser;
-//    var password = request.params.bankPassword;
-//    
-//    plaidClient.addAuthUseR('wells', {
-//        username: username,
-//        password: password,
-//    }, function(err, mfaResponse, resp) {
-//    if (err != null) {
-//        console.error(err);
-//        response.error(error)
-//    } else if (mfaResponse != null) {
-//        plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
-//        function(err, mfaRes, resp) {
-//            console.log(mfaRes);
-//            console.log(resp);
-//            user.set('backAccessToken', resp.access_token);
-//            user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-//            response.success();
-//        })
-//    });
-//    } else {
-//        console.log(resp);
-//        response.success(resp);
-//    }
-//    });
-//});
+Parse.Cloud.define('getPlaidToken', function(request, response) {
+    var user = request.user;
+    var username = request.params.bankUser;
+    var password = request.params.bankPassword;
+    
+    plaidClient.addAuthUser('wells', {
+        username: username,
+        password: password,
+    }, function(err, mfaResponse, resp) {
+    if (err != null) {
+        console.error(err);
+        response.error(error)
+    } else if (mfaResponse != null) {
+        plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
+        function(err, mfaRes, resp) {
+            console.log(mfaRes);
+            console.log(resp);
+            user.set('backAccessToken', resp.access_token);
+            user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+            response.success();
+        })
+    });
+    } else {
+        console.log(resp);
+        response.success(resp);
+    }
+    });
+});
 
 Parse.Cloud.define('addUserInfo', function(request, response) {
     const user = request.user;
