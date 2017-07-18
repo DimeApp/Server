@@ -172,6 +172,7 @@ Parse.Cloud.define('userAccessToken', function(request, response){
 //// Not sure if Works
 Parse.Cloud.define('getPlaidToken', function(request, response) {
     var user = request.user;
+    var institution = request.params.bankId
     var username = request.params.bankUser;
     var password = request.params.bankPassword;
     
@@ -190,6 +191,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
            user.set('backAccessToken', respo.access_token);
            user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
         })
+        response.success('mfa success');
     });
     }
     else {
@@ -198,7 +200,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
         user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
             
         })
-        response.success(resp);
+        response.success('no mfa success');
     }
     });
 });
