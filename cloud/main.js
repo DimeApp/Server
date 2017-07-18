@@ -185,17 +185,16 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     } else if (mfaResponse != null) {
         plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
         function(err, mfaRes, resp) {
-            //console.log(mfaRes);
-            console.log(resp.results.access_token);
-            user.set('backAccessToken', resp.results.access_token);
+            console.log(mfaRes);
+            console.log(resp.access_token);
+            user.set('backAccessToken', resp.access_token);
             user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
             response.success();
         })
     });
     } else {
-        //console.log(resp);
-        //response.success(resp);
-        console.log(resp.access_token);
+        console.log(resp);
+        response.success(resp);
     }
     });
 });
