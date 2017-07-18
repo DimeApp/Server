@@ -21,15 +21,12 @@ var plaidClient = new plaid.Client(
   plaid.environments.tartan
 );
 
-//// plaid.environments.sandbox
-//var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
-//                                   //plaid.environments.tartan);
-
 var stripe = require('stripe');
 // ("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 
 Parse.serverURL = process.env.SERVER_URL
 
+// CHARITY FUNCTIONS
 Parse.Cloud.define('addCharity', function(request, response){
   const charityId = request.params.charityId;
   const user = request.user;
@@ -101,12 +98,6 @@ Parse.Cloud.define('getUserCharityList', function(request, response){
   });
 
 });
-
-//
-//
-// Parse.Cloud.define('reorderCharityList',function(request,response){
-//
-// });
 
 
 Parse.Cloud.define('getUserBalance', function(request, response){
@@ -194,7 +185,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     } else if (mfaResponse != null) {
         plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
         function(err, mfaRes, resp) {
-            console.log(mfaRes);
+            //console.log(mfaRes);
             console.log(resp);
             user.set('backAccessToken', resp.access_token);
             user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
