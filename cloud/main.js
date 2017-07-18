@@ -17,7 +17,7 @@ var PLAID_ENV        = envvar.string('PLAID_ENV', 'tartan');
 var client = new plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
-  PLAID_PUBLIC_KEY,
+  //PLAID_PUBLIC_KEY,
   plaid.environments.tartan
 );
 
