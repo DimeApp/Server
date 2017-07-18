@@ -165,7 +165,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     var username = request.params.bankUser;
     var password = request.params.bankPassword;
     
-    plaidClient.addAuthUser('ins_19', {
+    plaidClient.addAuthUser('wells', {
         username: username,
         password: password,
     }, function(err, mfaResponse, resp) {
