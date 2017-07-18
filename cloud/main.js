@@ -195,7 +195,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     } else {
         //console.log(resp);
         //response.success(resp);
-        console.log('balh');
+        console.log(resp.results);
     }
     });
 });
