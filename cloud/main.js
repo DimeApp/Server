@@ -18,7 +18,7 @@ var client = new plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
   PLAID_PUBLIC_KEY,
-  plaid.environments[PLAID_ENV]
+  plaid.environments.tartan
 );
 
 //// plaid.environments.sandbox
