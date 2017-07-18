@@ -2,9 +2,27 @@
 require('isomorphic-fetch')
 var plaid = require('plaid');
 
-// plaid.environments.sandbox
-var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.development);
-                                   //plaid.environments.tartan);
+var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
+var PLAID_SECRET     = process.env.PLAID_SECRET
+var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY
+var PLAID_ENV        = envvar.string('PLAID_ENV', 'sandbox');
+
+
+// We store the access_token in memory - in production, store it in a secure
+// persistent data store
+//var ACCESS_TOKEN = null;
+//var PUBLIC_TOKEN = null;
+
+var client = new plaid.Client(
+  PLAID_CLIENT_ID,
+  PLAID_SECRET,
+  PLAID_PUBLIC_KEY,
+  plaid.environments[PLAID_ENV]
+);
+
+//// plaid.environments.sandbox
+//var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
+//                                   //plaid.environments.tartan);
 
 var stripe = require('stripe');
 // ("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
