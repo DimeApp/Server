@@ -190,11 +190,11 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
 //            console.log(mfaRes);
 //            console.log(resp.access_token);
 //            user.set('backAccessToken', resp.access_token);
-//            user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-//                response.success();
-            })
-        });
-    } 
+//           user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+//            response.success();
+//        })
+    });
+    }
     else {
         console.log(resp);
         response.success(resp);
