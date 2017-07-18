@@ -2,7 +2,8 @@
 require('isomorphic-fetch')
 var plaid = require('plaid');
 
-var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.tartan);
+// plaid.environments.sandbox
+var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID, process.env.PLAID_SECRET, plaid.environments.sandbox);
 
 var stripe = require('stripe');
 // ("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
