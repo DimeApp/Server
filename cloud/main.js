@@ -191,6 +191,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
            user.set('backAccessToken', respo.access_token);
            user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
         })
+        response.succes(respo);
         response.success('mfa success');
     });
     }
@@ -205,6 +206,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     });
 });
 
+// gets user access_token
 Parse.Cloud.define('returnAccessToken', function(request, response) {
     var user = request.user;
     var access_token = user.get('backAccessToken');
