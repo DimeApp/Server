@@ -216,16 +216,11 @@ Parse.Cloud.define('returnAccessToken', function(request, response) {
 Parse.Cloud.define('getAccounts', function(request, response) {
     var user = request.user;
     var access_token = user.get('backAccessToken');
-    plaidClient.getAccounts(access_token, function(err, res) {
-       if (err != null) {
-           console.error(err);
-           response.error(error)
-       } else {
-           console.log("hey");
-           response.success("hey");
-       } 
-    }); 
-});
+    plaidClient.getAuthUser(access_token, function(err, res) {
+        console.log(res.accounts);
+    });
+}); 
+
 
 //Parse.Cloud.define('getPublicToken', function(request, response) {
 //    plaidClient.exchangeToken(public_token, function(err, res) {
