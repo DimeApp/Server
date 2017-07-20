@@ -218,6 +218,7 @@ Parse.Cloud.define('getAccounts', function(request, response) {
     var access_token = user.get('backAccessToken');
     plaidClient.getAuthUser(access_token, function(err, res) {
         console.log(res.accounts);
+        response.success(res.accounts);
     });
 }); 
 
