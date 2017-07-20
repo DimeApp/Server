@@ -209,6 +209,7 @@ Parse.Cloud.define('returnAccessToken', function(request, response) {
    var user = request.user;
    var access_token = user.access_token;
    console.log(access_token);
+   response.success('yay');
 });
 
 //Parse.Cloud.define('getPublicToken', function(request, response) {
