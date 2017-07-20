@@ -191,7 +191,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
            user.set('backAccessToken', respo.access_token);
            user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
         })
-        response.succes(respo);
+        response.success(respo);
         response.success('mfa success');
     });
     }
@@ -211,6 +211,20 @@ Parse.Cloud.define('returnAccessToken', function(request, response) {
     var user = request.user;
     var access_token = user.get('backAccessToken');
     response.success(access_token);
+});
+
+Parse.Cloud.define('getAccounts', function(request, response) {
+    var user = request.user;
+    var access_token = user.get('backAccessToken');
+    plaidClient.getAccounts(access_token, function(err, res) {
+       if (err != null) {
+           console.error(err);
+           response.error(error)
+       } else {
+           console.log("hey");
+           response.success("hey");
+       } 
+    }); 
 });
 
 //Parse.Cloud.define('getPublicToken', function(request, response) {
