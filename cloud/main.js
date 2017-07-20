@@ -6,7 +6,7 @@ var envvar = require('envvar');
 var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET     = process.env.PLAID_SECRET
 var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY
-var PLAID_ENV        = envvar.string('PLAID_ENV', 'tartan');
+var PLAID_ENV        = envvar.string('PLAID_ENV', 'sandbox');
 
 
 // We store the access_token in memory - in production, store it in a secure
@@ -169,7 +169,7 @@ Parse.Cloud.define('userAccessToken', function(request, response){
     });
 });
 
-//// Not sure if Works
+//// Takes in user login info for their bank, generates and saves access_token to db
 Parse.Cloud.define('getPlaidToken', function(request, response) {
     var user = request.user;
     var institution = request.params.bankId
@@ -204,6 +204,17 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     }
     });
 });
+
+Parse.Cloud.define('getPublicToken', function(request, response) {
+    plaidClient.exchangeToken(public_token, function(err, res) {
+        var access_token = res.access_token;
+
+    plaidClient.getAuthUser(access_token, function(err, res) {
+        console.log(res.accounts);
+        });
+    });
+});
+
 
 Parse.Cloud.define('addUserInfo', function(request, response) {
     const user = request.user;
