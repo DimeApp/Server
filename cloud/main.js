@@ -1,6 +1,6 @@
 
 require('isomorphic-fetch')
-var plaid = require('plaid');
+var Plaid = require('plaid');
 var envvar = require('envvar');
 
 var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
@@ -14,11 +14,11 @@ var PLAID_ENV        = envvar.string('PLAID_ENV', 'sandbox');
 //var ACCESS_TOKEN = null;
 //var PUBLIC_TOKEN = null;
 
-var plaidClient = new plaid.Client(
+var plaidClient = new Plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
   PLAID_PUBLIC_KEY,
-  plaid.environments.sandbox
+    Plaid.environments.sandbox
 );
 
 var stripe = require('stripe');
