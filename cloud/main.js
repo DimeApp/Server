@@ -6,7 +6,7 @@ var envvar = require('envvar');
 var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET     = process.env.PLAID_SECRET
 var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY
-var PLAID_ENV        = envvar.string('PLAID_ENV', 'development');
+var PLAID_ENV        = envvar.string('PLAID_ENV', 'sandbox');
 
 
 // We store the access_token in memory - in production, store it in a secure
@@ -18,7 +18,7 @@ var plaidClient = new plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
   PLAID_PUBLIC_KEY,
-  plaid.environments.development
+  plaid.environments.sandbox
 );
 
 var stripe = require('stripe');
