@@ -18,7 +18,7 @@ var plaidClient = new Plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
   PLAID_PUBLIC_KEY,
-    Plaid.environments.sandbox
+  Plaid.environments.sandbox
 );
 
 var stripe = require('stripe');
@@ -205,15 +205,15 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     });
 });
 
-Parse.Cloud.define('getPublicToken', function(request, response) {
-    plaidClient.exchangeToken(public_token, function(err, res) {
-        var access_token = res.access_token;
-
-    plaidClient.getAuthUser(access_token, function(err, res) {
-        console.log(res.accounts);
-        });
-    });
-});
+//Parse.Cloud.define('getPublicToken', function(request, response) {
+//    plaidClient.exchangeToken(public_token, function(err, res) {
+//        var access_token = res.access_token;
+//
+//    plaidClient.getAuthUser(access_token, function(err, res) {
+//        console.log(res.accounts);
+//        });
+//    });
+//});
 
 
 Parse.Cloud.define('addUserInfo', function(request, response) {
