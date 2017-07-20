@@ -18,7 +18,7 @@ var plaidClient = new Plaid.Client(
   PLAID_CLIENT_ID,
   PLAID_SECRET,
   PLAID_PUBLIC_KEY,
-  Plaid.environments.sandbox
+  Plaid.environments.tartan
 );
 
 var stripe = require('stripe');
