@@ -205,6 +205,11 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     });
 });
 
+Parse.Cloud.define('returnAccessToken', function(request, response) {
+   var access_token = request.access_token;
+   console.log(access_token);
+});
+
 //Parse.Cloud.define('getPublicToken', function(request, response) {
 //    plaidClient.exchangeToken(public_token, function(err, res) {
 //        var access_token = res.access_token;
