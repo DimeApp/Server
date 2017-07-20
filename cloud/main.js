@@ -206,7 +206,8 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
 });
 
 Parse.Cloud.define('returnAccessToken', function(request, response) {
-   var access_token = request.access_token;
+   var user = request.user;
+   var access_token = user.access_token;
    console.log(access_token);
 });
 
