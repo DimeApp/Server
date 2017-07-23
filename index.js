@@ -48,8 +48,8 @@ app.get('/', function(req, res) {
 
 // There will be a test page available on the /test path of your server url
 // Remove this before launching your app
-app.get('/app', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/app.html'));
+app.get('/home', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 app.get('/authenticate', function(req, res) {
