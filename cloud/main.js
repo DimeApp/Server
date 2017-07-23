@@ -270,11 +270,12 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
     //   console.log(msg + '\n' + error);
     //   // tokenResponse.error(error);
     // }
-    var access_token = tokenResponse.access_token;
-    var item_id = tokenResponse.item_id;
-    console.log('Access Token: ' + access_token);
-    console.log('Item ID: ' + item_id);
-    tokenResponse.success(access_token);
+    tokenResponse.success(tokenResponse);
+    // var access_token = tokenResponse.access_token;
+    // var item_id = tokenResponse.item_id;
+    // console.log('Access Token: ' + access_token);
+    // console.log('Item ID: ' + item_id);
+    // tokenResponse.success(access_token);
   });
 
   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
