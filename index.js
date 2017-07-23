@@ -32,7 +32,7 @@ var app = express();
 
 
 // plaid.environments.sandbox
-var plaidClient = new plaid.Client(process.env.client_id , process.env.secret, plaid.environments.tartan);
+var plaidClient = new plaid.Client(process.env.client_id , process.env.secret, process.env.PLAID_PUBLIC_KEY ,plaid.environments.sandbox;
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
