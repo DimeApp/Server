@@ -268,11 +268,13 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
         response.success(res);
         user.set('backAccessToken', access_token);
       });
+      });
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
     response.success("Success");
   });
   response.console.error(error);
 });
+
 
 
 //
