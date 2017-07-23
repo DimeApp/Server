@@ -265,11 +265,11 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
 
   // const public_token = request.params.public_token;
   plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-    if (error != null) {
-      var msg = 'Could not exchange public_token!';
-      console.log(msg + '\n' + error);
-      tokenResponse.error(error);
-    }
+    // if (error != null) {
+    //   var msg = 'Could not exchange public_token!';
+    //   console.log(msg + '\n' + error);
+    //   // tokenResponse.error(error);
+    // }
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
     console.log('Access Token: ' + ACCESS_TOKEN);
