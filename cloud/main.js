@@ -262,11 +262,12 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   if(user == null){
     response.error('Either no session token or session token has expired');
   }
-  var access_token = plaidClient.exchangeToken(public_token, function(err,res){
-    return res.access_token;
-  });
-
-  user.set('backAccessToken', access_token)
+   plaidClient.exchangeToken(public_token, function(err,res){
+      var access_token = res.access_token;
+      return plaidClient.getConnectUser(access_token, function(err, res) {
+        response.success(res);
+        user.set('backAccessToken', access_token);
+      });
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
     response.success("Success");
   });
