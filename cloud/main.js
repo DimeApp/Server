@@ -281,7 +281,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
 
   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
   //   response.success("Success");
-  response.error(error);
+  console.log(request);
 });
 
 
