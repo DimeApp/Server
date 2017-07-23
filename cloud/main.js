@@ -11,8 +11,8 @@ var PLAID_ENV        = envvar.string('PLAID_ENV', 'tartan');
 
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store
-var ACCESS_TOKEN = null;
-var PUBLIC_TOKEN = null;
+// var ACCESS_TOKEN = null;
+// var PUBLIC_TOKEN = null;
 
 var plaidClient = new Plaid.Client(
   PLAID_CLIENT_ID,
@@ -265,7 +265,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   var access_token = plaidClient.exchangeToken(public_token, function(err,res){
     return res.access_token;
   });
-  
+
   user.set('backAccessToken', access_token)
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
     response.success("Success");
