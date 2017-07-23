@@ -11,8 +11,8 @@ var PLAID_ENV        = envvar.string('PLAID_ENV', 'tartan');
 
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store
-//var ACCESS_TOKEN = null;
-//var PUBLIC_TOKEN = null;
+var ACCESS_TOKEN = null;
+var PUBLIC_TOKEN = null;
 
 var plaidClient = new Plaid.Client(
   PLAID_CLIENT_ID,
@@ -175,7 +175,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     var institution = request.params.bankId
     var username = request.params.bankUser;
     var password = request.params.bankPassword;
-    
+
     plaidClient.addAuthUser(institution, {
         username: username,
         password: password,
@@ -183,7 +183,7 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
     if (err != null) {
         console.error(err);
         response.error(error)
-    } 
+    }
     else if (mfaResponse != null) {
         plaidClient.stepAuthUser(mfaResponse.access_token, 'tomato', {},
         function(err, mfaRes, respo) {
@@ -199,12 +199,15 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
         console.log(resp.access_token);
         user.set('backAccessToken', resp.access_token);
         user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-            
+
         })
         response.success('no mfa success');
     }
     });
 });
+
+
+
 
 // gets user access_token
 Parse.Cloud.define('returnAccessToken', function(request, response) {
@@ -220,7 +223,7 @@ Parse.Cloud.define('getAccounts', function(request, response) {
         console.log(res.accounts);
         response.success(res.accounts);
     });
-}); 
+});
 
 
 //Parse.Cloud.define('getPublicToken', function(request, response) {
@@ -237,12 +240,12 @@ Parse.Cloud.define('getAccounts', function(request, response) {
 Parse.Cloud.define('addUserInfo', function(request, response) {
     const user = request.user;
     const email = request.params.email;
-    
+
     if (email == null) {
         response.error('Enter an e-mail');
     }
     user.set('email', email)
-    
+
     return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
         response.success("Success");
     });
@@ -253,14 +256,16 @@ Parse.Cloud.define('addUserInfo', function(request, response) {
 //real user auth for plaid
 // Plaid function to store public_token to User upon successful bank authentication
 // via Plaid Link. Sets bank_auth to true.
-Parse.Cloud.define('storePlaidPublicToken', function(request, response){
+Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   const public_token = request.params.public_token;
   const user = request.user;
   if(user == null){
     response.error('Either no session token or session token has expired');
   }
-  user.set('public_token', public_token)
-  user.set('hasBankAuthenticated', true)
+  var access_token = plaidClient.exchangeToken(public_token, function(err,res){
+    return res.access_token;
+  });
+  user.set('backAccessToken', access_token)
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
     response.success("Success");
   });
@@ -385,11 +390,11 @@ Parse.Cloud.define('checkBankAuth', function(request, response) {
 /*-----------------------------------------------*/
 
 // https://plaid.com/docs/api/#webhooks VERY HELPFUL
-// Parse.Cloud.define('roundLastTransaction'){
-//   // run getTransactions.... get last transaction set transaction value.. and use this to get charge
-//   const transactionValue = request.transactionValue;
-//   const charge = Math.ceil(transactionValue) - transactionValue
-// }
+Parse.Cloud.define('roundLastTransaction', function(request, response) {
+  // run getTransactions.... get last transaction set transaction value.. and use this to get charge
+  const transactionValue = request.transactionValue;
+  const charge = Math.ceil(transactionValue) - transactionValue
+});
 
 // function to check rounded balance is at 10 needed
 
