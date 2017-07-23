@@ -263,7 +263,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
     response.error('Either no session token or session token has expired');
   }
 
-  const public_token = request.params.public_token;
+  // const public_token = request.params.public_token;
   client.exchangePublicToken(public_token, function(error, tokenResponse) {
     if (error != null) {
       var msg = 'Could not exchange public_token!';
