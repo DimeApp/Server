@@ -265,6 +265,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   var access_token = plaidClient.exchangeToken(public_token, function(err,res){
     return res.access_token;
   });
+  
   user.set('backAccessToken', access_token)
   return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
     response.success("Success");
