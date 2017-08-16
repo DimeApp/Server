@@ -256,31 +256,31 @@ Parse.Cloud.define('addUserInfo', function(request, response) {
 //real user auth for plaid
 // Plaid function to store public_token to User upon successful bank authentication
 // via Plaid Link. Sets bank_auth to true.
-// Parse.Cloud.define('storePlaidAccessToken', function(request, response){
-//   const public_token = request.params.public_token;
-//   const user = request.user;
-//   if(user == null){
-//     response.error('Either no session token or session token has expired');
-//   }
-//
-//   // const public_token = request.params.public_token;
-//   plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-//     if (error != null) {
-//       var msg = 'Could not exchange public_token!';
-//       console.log(msg + '\n' + error);
-//       return response.json({error: msg});
-//     }
-//     ACCESS_TOKEN = tokenResponse.access_token;
-//     ITEM_ID = tokenResponse.item_id;
-//     console.log('Access Token: ' + ACCESS_TOKEN);
-//     console.log('Item ID: ' + ITEM_ID);
-//     response.json({'error': false});
-//   });
-//
-//   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-//   //   response.success("Success");
-//   response.console.error(error);
-// });
+Parse.Cloud.define('storePlaidAccessToken', function(request, response){
+  const public_token = request.params.public_token;
+  const user = request.user;
+  if(user == null){
+    response.error('Either no session token or session token has expired');
+  }
+
+  // const public_token = request.params.public_token;
+  plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
+    if (error != null) {
+      var msg = 'Could not exchange public_token!';
+      console.log(msg + '\n' + error);
+      return response.json({error: msg});
+    }
+    ACCESS_TOKEN = tokenResponse.access_token;
+    ITEM_ID = tokenResponse.item_id;
+    console.log('Access Token: ' + ACCESS_TOKEN);
+    console.log('Item ID: ' + ITEM_ID);
+    response.json({'error': false});
+  });
+
+  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+  //   response.success("Success");
+  response.console.error(error);
+});
 
 
 
