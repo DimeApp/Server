@@ -4,7 +4,7 @@ logs
 
 #config
 /config
-
+.env
 # Runtime data
 pids
 *.pid
