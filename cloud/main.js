@@ -263,26 +263,27 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
     response.error('Either no session token or session token has expired');
   }
 
-  if(public_token){
-    response.success("Success");
-  }
-  // // const public_token = request.params.public_token;
-  // plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-  //   if (error != null) {
-  //     var msg = 'Could not exchange public_token!';
-  //     console.log(msg + '\n' + error);
-  //     return response.json({error: msg});
-  //   }
-  //   ACCESS_TOKEN = tokenResponse.access_token;
-  //   ITEM_ID = tokenResponse.item_id;
-  //   console.log('Access Token: ' + ACCESS_TOKEN);
-  //   console.log('Item ID: ' + ITEM_ID);
-  //   response.json({'error': false});
-  // });
-  //
-  // // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-  // //   response.success("Success");
-  // response.console.error(error);
+  // if(public_token){
+  //   response.success("Success");
+  // }
+  // const public_token = request.params.public_token;
+  plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
+    if (error != null) {
+      var msg = 'Could not exchange public_token!';
+      console.log(msg + '\n' + error);
+      return response.json({error: msg});
+    }
+    ACCESS_TOKEN = tokenResponse.access_token;
+    ITEM_ID = tokenResponse.item_id;
+    console.log('Access Token: ' + ACCESS_TOKEN);
+    console.log('Item ID: ' + ITEM_ID);
+    response.json({'error': false});
+    response.success("Success" + ACCESS_TOKEN);
+  });
+
+  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+  //   response.success("Success");
+  response.console.error(error);
 });
 
 
