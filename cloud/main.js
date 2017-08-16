@@ -264,7 +264,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   }
 
   if(public_token){
-    response.sucess("Success");
+    response.success("Success");
   }
   // // const public_token = request.params.public_token;
   // plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
