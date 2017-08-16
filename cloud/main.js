@@ -276,9 +276,9 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
     }
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
-    console.log('Access Token: ' + ACCESS_TOKEN);
-    console.log('Item ID: ' + ITEM_ID);
-    response.json({'error': false});
+    // console.log('Access Token: ' + ACCESS_TOKEN);
+    // console.log('Item ID: ' + ITEM_ID);
+    // response.json({'error': false});
     response.success("Success" + ACCESS_TOKEN);
   });
 
