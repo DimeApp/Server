@@ -271,13 +271,13 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
     if (error != null) {
       var msg = 'Could not exchange public_token!';
       // console.log(msg + '\n' + error);
-      return tokenResponse.json({error: msg});
+      return tokenResponse;
     }
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
     console.log('Access Token: ' + ACCESS_TOKEN);
     console.log('Item ID: ' + ITEM_ID);
-    return tokenResponse.json({'error': false});
+    return tokenResponse;
   });
 
   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
