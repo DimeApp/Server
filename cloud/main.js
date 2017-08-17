@@ -256,7 +256,7 @@ Parse.Cloud.define('addUserInfo', function(request, response) {
 //real user auth for plaid
 // Plaid function to store public_token to User upon successful bank authentication
 // via Plaid Link. Sets bank_auth to true.
-Parse.Cloud.define('storePlaidAccessToken', function(request, response, next){
+Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   const public_token = request.params.public_token;
   const user = request.user;
   if(user == null){
@@ -267,18 +267,20 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response, next){
   //   response.success("Success");
   // }
   // const public_token = request.params.public_token;
-  plaidClient.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
+  plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
     if (error != null) {
       var msg = 'Could not exchange public_token!';
-      console.log(msg + '\n' + error);
-      return response.json({error: msg});
+      // console.log(msg + '\n' + error);
+      return tokenResponse;
     }
-    ACCESS_TOKEN = "Hey Testing";
+    // ACCESS_TOKEN = tokenResponse.access_token;
+    ACCESS_TOKEN = "hey testing"
     ITEM_ID = tokenResponse.item_id;
     console.log('Access Token: ' + ACCESS_TOKEN);
     console.log('Item ID: ' + ITEM_ID);
-    response.json({'error': false});
+    return tokenResponse;
   });
+
   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
   response.success("Success" + ACCESS_TOKEN);
   response.console.error(error);
