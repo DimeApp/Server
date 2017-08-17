@@ -7,7 +7,7 @@ var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET     = process.env.PLAID_SECRET
 var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY
 var PLAID_ENV        = envvar.string('PLAID_ENV', 'sandbox');
-var ACCESS_TOKEN;
+var ACCESS_TOKEN     = null;
 
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store
@@ -273,7 +273,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
       // console.log(msg + '\n' + error);
       return tokenResponse;
     }
-    ACCESS_TOKEN = tokenResponse.access_token;
+    ACCESS_TOKEN = "Hey Testing";
     ITEM_ID = tokenResponse.item_id;
     console.log('Access Token: ' + ACCESS_TOKEN);
     console.log('Item ID: ' + ITEM_ID);
