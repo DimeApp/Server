@@ -6,7 +6,7 @@ var plaid = require('plaid');
 // var stripe = require('stripe');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
-require('dotenv').config()
+require('dotenv').config();
 
 var databaseUri = process.env.MONGODB_URI;
 
