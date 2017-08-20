@@ -2,6 +2,8 @@
 require('isomorphic-fetch')
 var Plaid = require('plaid');
 var envvar = require('envvar');
+require('dotenv').config()
+
 
 var PLAID_CLIENT_ID  = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET     = process.env.PLAID_SECRET

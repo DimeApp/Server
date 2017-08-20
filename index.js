@@ -6,8 +6,9 @@ var plaid = require('plaid');
 // var stripe = require('stripe');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
+require('dotenv').config()
 
-var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI || "mongodb://heroku_b6s44z1h:8kv0eloe9v9drc0q16mu3mglcm@ds139979.mlab.com:39979/heroku_b6s44z1h";
+var databaseUri = process.env.MONGODB_URI;
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
@@ -16,9 +17,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || '',
-  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:3000/parse' || "https://dime-server.herokuapp.com/parse",  // Don't forget to change to https if needed
+  appId: process.env.APP_ID,
+  masterKey: process.env.MASTER_KEY, //Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL,  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   },
@@ -32,7 +33,7 @@ var app = express();
 
 
 // plaid.environments.sandbox
-var plaidClient = new plaid.Client(process.env.client_id , process.env.secret, process.env.PLAID_PUBLIC_KEY ,plaid.environments.sandbox);
+var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID , process.env.PLAID_SECRET, process.env.PLAID_PUBLIC_KEY ,plaid.environments.sandbox);
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
