@@ -91,4 +91,4 @@ Ask me for the .env file for the server and the dashboard.
 ```mongod``` in another terminal
 ``npm start```
 If you want the to run the parse dashboard as well. 
-```cd``` to that directory and ```npm start```
+```cd``` to that directory and ```npm install && npm start```
