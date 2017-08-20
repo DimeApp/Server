@@ -86,9 +86,10 @@ body: ["X-Parse-Application-Id": APP_ID, "X-Parse-Session-Token:" session_token]
 
 
 ### RUN LOCALLY
-Ask me for the .env file for the server and the dashboard. 
-```npm install```
-```mongod``` in another terminal
-``npm start```
-If you want the to run the parse dashboard as well. 
-```cd``` to that directory and ```npm install && npm start```
+Ask me for the .env file for the server and the dashboard. <br>
+```npm install```<br>
+```mongod``` in another terminal<br>
+```npm start```<br>
+If you want the to run the parse dashboard as well. <br>
+```cd``` to that directory<br>
+and ```npm install && npm start```
