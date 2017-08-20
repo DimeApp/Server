@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "envvar": "^1.1.0",
     "es6-promise": "^4.0.5",
     "express": "~4.11.x",
