@@ -284,7 +284,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   });
 
   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-  response.success("Success" + ITEM_ID);
+  response.success("Success");
   response.console.error(error);
 });
 
