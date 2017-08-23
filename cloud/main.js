@@ -269,18 +269,21 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   //   response.success("Success");
   // }
   // const public_token = request.params.public_token;
-  user.set('balance', updatedBalance);
-  const ACCESS_TOKEN = plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-    // unable to exchange tokens
+  plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
     if (error != null) {
       var msg = 'Could not exchange public_token!';
-      return error.message;
+      // console.log(msg + '\n' + error);
+      return tokenResponse;
     }
+    // ACCESS_TOKEN = tokenResponse.access_token;
+    ACCESS_TOKEN = "hey testing"
     ITEM_ID = tokenResponse.item_id;
-    return tokenResponse.access_token;
+    console.log('Access Token: ' + ACCESS_TOKEN);
+    console.log('Item ID: ' + ITEM_ID);
+    return tokenResponse;
   });
-  user.set('bankAccessToken', ACCESS_TOKEN)
-  return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+
+  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
   response.success("Success" + ITEM_ID);
   response.console.error(error);
 });
