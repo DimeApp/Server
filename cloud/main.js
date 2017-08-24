@@ -269,55 +269,15 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
   function(err, exchangeTokenRes) {
     if (err != null) {
       response.error(err)
-      // Handle error!
     } else {
-      // The access_token can be used to make API calls to
-      // retrieve product data - store access_token and item_id
-      // in a persistent datastore
       var access_token = exchangeTokenRes.access_token;
       user.set('bankAccessToken', access_token)
       return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
           response.success("Success");
       });
-      // plaidClient.getAuth(access_token, function(err, authRes) {
-      //   if (err != null) {
-      //     // Handle error!
-      //   } else {
-      //     // An array of accounts for this Item, containing
-      //     // high-level account information and account numbers
-      //     // for checkings and savings accounts
-      //     res.json({
-      //      accounts: authRes.accounts,
-      //      numbers: authRes.numbers
-      //     });
-      //   }
-      // });
     }
   });
 });
-
-
-
-// John's code
-//   plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-//     if (error != null) {
-//       var msg = 'Could not exchange public_token!';
-//       // console.log(msg + '\n' + error);
-//       return tokenResponse;
-//     }
-//     // ACCESS_TOKEN = tokenResponse.access_token;
-//     ACCESS_TOKEN = "hey testing"
-//     ITEM_ID = tokenResponse.item_id;
-//     console.log('Access Token: ' + ACCESS_TOKEN);
-//     console.log('Item ID: ' + ITEM_ID);
-//     return tokenResponse;
-//   });
-//
-//   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-//   response.success("Success");
-//   response.console.error(error);
-// });
-
 
 
 //
