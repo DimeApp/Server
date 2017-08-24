@@ -358,19 +358,45 @@ Parse.Cloud.define('getTransactions', function(request, response){
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
-    var public_token = user.get('public_token');
-    if (public_token != null) {
-    plaidClient.exchangeToken(public_token, function(err,res){
-      var access_token = res.access_token;
-      return plaidClient.getConnectUser(access_token, function(err, res) {
-        response.success(res);
-      });
-    });
+    var access_token = user.get('bankAccessToken');
+    if (access_token) {
+      plaidClient.getTransactions(access_token, '2017-01-01', '2017-02-15', {
+         count: 20,
+         offset: 0,
+        }, (err, result) => {
+         // Handle err
+         if(err){
+          response.error(err)
+           console.log('error')
+         }
+         const transactions = result.transactions;
+         response.success(transactions)
+        });
     } else {
-      return response.error("Oh heck nah! Get outta here boyo!");
+      return response.error("User has not authorized bank account");
     }
   });
 });
+// Parse.Cloud.define('getTransactions', function(request, response){
+//   const user = request.user;
+//   const User = Parse.Object.extend('User');
+//   const query = new Parse.Query(User);
+//   query.get(user.id).then(function(user){
+//     var public_token = user.get('public_token');
+//     if (public_token != null) {
+//     plaidClient.exchangeToken(public_token, function(err,res){
+//       var access_token = res.access_token;
+//       return plaidClient.getConnectUser(access_token, function(err, res) {
+//         response.success(res);
+//       });
+//     });
+//     } else {
+//       return response.error("Oh heck nah! Get outta here boyo!");
+//     }
+//   });
+// });
+
+
 
 // // Right now all this does is return a date
 // Parse.Cloud.define('getLastTransaction', function(request, response) {
