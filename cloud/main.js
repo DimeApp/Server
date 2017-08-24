@@ -271,7 +271,9 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
       response.error(err)
     } else {
       var access_token = exchangeTokenRes.access_token;
+      var item_id = exchangeTokenRes.item_id;
       user.set('bankAccessToken', access_token)
+      user.set('plaid_item_id', item_id)
       return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
           response.success("Success");
       });
