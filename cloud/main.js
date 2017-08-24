@@ -254,39 +254,69 @@ Parse.Cloud.define('addUserInfo', function(request, response) {
     response.console.error(error);
 });
 
-
-//real user auth for plaid
-// Plaid function to store public_token to User upon successful bank authentication
-// via Plaid Link. Sets bank_auth to true.
+// recieves plaid public_token from clientside, exchanges public_token for access_token
+// which is stored in the database for future plaid api calls
 Parse.Cloud.define('storePlaidAccessToken', function(request, response){
-  const public_token = request.params.public_token;
+  if (!request.params.public_token){
+    response.error('no public_token supplied')
+  }
+  const { public_token } = request.params;
   const user = request.user;
   if(user == null){
     response.error('Either no session token or session token has expired');
   }
-
-  // if(public_token){
-  //   response.success("Success");
-  // }
-  // const public_token = request.params.public_token;
-  plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-    if (error != null) {
-      var msg = 'Could not exchange public_token!';
-      // console.log(msg + '\n' + error);
-      return tokenResponse;
+  plaidClient.exchangePublicToken(public_token,
+  function(err, exchangeTokenRes) {
+    if (err != null) {
+      response.error(err)
+      // Handle error!
+    } else {
+      // The access_token can be used to make API calls to
+      // retrieve product data - store access_token and item_id
+      // in a persistent datastore
+      var access_token = exchangeTokenRes.access_token;
+      user.set('bankAccessToken', access_token)
+      return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+          response.success("Success");
+      });
+      // plaidClient.getAuth(access_token, function(err, authRes) {
+      //   if (err != null) {
+      //     // Handle error!
+      //   } else {
+      //     // An array of accounts for this Item, containing
+      //     // high-level account information and account numbers
+      //     // for checkings and savings accounts
+      //     res.json({
+      //      accounts: authRes.accounts,
+      //      numbers: authRes.numbers
+      //     });
+      //   }
+      // });
     }
-    // ACCESS_TOKEN = tokenResponse.access_token;
-    ACCESS_TOKEN = "hey testing"
-    ITEM_ID = tokenResponse.item_id;
-    console.log('Access Token: ' + ACCESS_TOKEN);
-    console.log('Item ID: ' + ITEM_ID);
-    return tokenResponse;
   });
-
-  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-  response.success("Success");
-  response.console.error(error);
 });
+
+
+
+// John's code
+//   plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
+//     if (error != null) {
+//       var msg = 'Could not exchange public_token!';
+//       // console.log(msg + '\n' + error);
+//       return tokenResponse;
+//     }
+//     // ACCESS_TOKEN = tokenResponse.access_token;
+//     ACCESS_TOKEN = "hey testing"
+//     ITEM_ID = tokenResponse.item_id;
+//     console.log('Access Token: ' + ACCESS_TOKEN);
+//     console.log('Item ID: ' + ITEM_ID);
+//     return tokenResponse;
+//   });
+//
+//   // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+//   response.success("Success");
+//   response.console.error(error);
+// });
 
 
 
