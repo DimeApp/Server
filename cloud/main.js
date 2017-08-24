@@ -377,25 +377,6 @@ Parse.Cloud.define('getTransactions', function(request, response){
     }
   });
 });
-// Parse.Cloud.define('getTransactions', function(request, response){
-//   const user = request.user;
-//   const User = Parse.Object.extend('User');
-//   const query = new Parse.Query(User);
-//   query.get(user.id).then(function(user){
-//     var public_token = user.get('public_token');
-//     if (public_token != null) {
-//     plaidClient.exchangeToken(public_token, function(err,res){
-//       var access_token = res.access_token;
-//       return plaidClient.getConnectUser(access_token, function(err, res) {
-//         response.success(res);
-//       });
-//     });
-//     } else {
-//       return response.error("Oh heck nah! Get outta here boyo!");
-//     }
-//   });
-// });
-
 
 
 // // Right now all this does is return a date
