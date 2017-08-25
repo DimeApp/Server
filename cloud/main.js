@@ -354,7 +354,7 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
 // generate transaction history.
 
 Parse.Cloud.define('getTransactions', function(request, response){
-
+  // prototype for formatting dates for plaid request
   Date.prototype.yyyymmdd = function() {
     var mm = this.getMonth() + 1; // getMonth() is zero-based
     var dd = this.getDate();
@@ -370,8 +370,10 @@ Parse.Cloud.define('getTransactions', function(request, response){
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
     var access_token = user.get('bankAccessToken');
+    // start date is when user created account
     var startDate = user.get('createdAt')
         startDate = startDate.yyyymmdd()
+    // end date is current date, formatted for PLaid request
     var endDate = new Date().toISOString().slice(0,10);
     console.log(endDate)
     if (access_token) {
