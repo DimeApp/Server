@@ -354,13 +354,28 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
 // generate transaction history.
 
 Parse.Cloud.define('getTransactions', function(request, response){
+
+  Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [this.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+          ].join('-');
+  };
+
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
     var access_token = user.get('bankAccessToken');
+    var startDate = user.get('createdAt')
+        startDate = startDate.yyyymmdd()
+    var endDate = new Date().toISOString().slice(0,10);
+    console.log(endDate)
     if (access_token) {
-      plaidClient.getTransactions(access_token, '2017-01-01', '2017-02-15', {
+      plaidClient.getTransactions(access_token, startDate, endDate, {
          count: 20,
          offset: 0,
         }, (err, result) => {
@@ -370,7 +385,7 @@ Parse.Cloud.define('getTransactions', function(request, response){
            console.log('error')
          }
          const transactions = result.transactions;
-         response.success(transactions)
+         response.success({'transactions': transactions})
         });
     } else {
       return response.error("User has not authorized bank account");
