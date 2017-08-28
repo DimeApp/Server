@@ -254,40 +254,32 @@ Parse.Cloud.define('addUserInfo', function(request, response) {
     response.console.error(error);
 });
 
-
-//real user auth for plaid
-// Plaid function to store public_token to User upon successful bank authentication
-// via Plaid Link. Sets bank_auth to true.
+// recieves plaid public_token from clientside, exchanges public_token for access_token
+// which is stored in the database for future plaid api calls
 Parse.Cloud.define('storePlaidAccessToken', function(request, response){
-  const public_token = request.params.public_token;
+  if (!request.params.public_token){
+    response.error('no public_token supplied')
+  }
+  const { public_token } = request.params;
   const user = request.user;
   if(user == null){
     response.error('Either no session token or session token has expired');
   }
-
-  // if(public_token){
-  //   response.success("Success");
-  // }
-  // const public_token = request.params.public_token;
-  plaidClient.exchangePublicToken(public_token, function(error, tokenResponse) {
-    if (error != null) {
-      var msg = 'Could not exchange public_token!';
-      // console.log(msg + '\n' + error);
-      return tokenResponse;
+  plaidClient.exchangePublicToken(public_token,
+  function(err, exchangeTokenRes) {
+    if (err != null) {
+      response.error(err)
+    } else {
+      var access_token = exchangeTokenRes.access_token;
+      var item_id = exchangeTokenRes.item_id;
+      user.set('bankAccessToken', access_token)
+      user.set('plaid_item_id', item_id)
+      return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
+          response.success("Success");
+      });
     }
-    // ACCESS_TOKEN = tokenResponse.access_token;
-    ACCESS_TOKEN = "hey testing"
-    ITEM_ID = tokenResponse.item_id;
-    console.log('Access Token: ' + ACCESS_TOKEN);
-    console.log('Item ID: ' + ITEM_ID);
-    return tokenResponse;
   });
-
-  // return user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-  response.success("Success");
-  response.console.error(error);
 });
-
 
 
 //
@@ -362,23 +354,47 @@ Parse.Cloud.define('storePlaidAccessToken', function(request, response){
 // generate transaction history.
 
 Parse.Cloud.define('getTransactions', function(request, response){
+  // prototype for formatting dates for plaid request
+  Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [this.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+          ].join('-');
+  };
+
   const user = request.user;
   const User = Parse.Object.extend('User');
   const query = new Parse.Query(User);
   query.get(user.id).then(function(user){
-    var public_token = user.get('public_token');
-    if (public_token != null) {
-    plaidClient.exchangeToken(public_token, function(err,res){
-      var access_token = res.access_token;
-      return plaidClient.getConnectUser(access_token, function(err, res) {
-        response.success(res);
-      });
-    });
+    var access_token = user.get('bankAccessToken');
+    // start date is when user created account
+    var startDate = user.get('createdAt')
+        startDate = startDate.yyyymmdd()
+    // end date is current date, formatted for PLaid request
+    var endDate = new Date().toISOString().slice(0,10);
+    console.log(endDate)
+    if (access_token) {
+      plaidClient.getTransactions(access_token, startDate, endDate, {
+         count: 20,
+         offset: 0,
+        }, (err, result) => {
+         // Handle err
+         if(err){
+          response.error(err)
+           console.log('error')
+         }
+         const transactions = result.transactions;
+         response.success({'transactions': transactions})
+        });
     } else {
-      return response.error("Oh heck nah! Get outta here boyo!");
+      return response.error("User has not authorized bank account");
     }
   });
 });
+
 
 // // Right now all this does is return a date
 // Parse.Cloud.define('getLastTransaction', function(request, response) {

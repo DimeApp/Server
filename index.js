@@ -3,6 +3,7 @@
 
 var express = require('express');
 var plaid = require('plaid');
+var bodyParser = require('body-parser');
 // var stripe = require('stripe');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
@@ -37,6 +38,8 @@ var plaidClient = new plaid.Client(process.env.PLAID_CLIENT_ID , process.env.PLA
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
