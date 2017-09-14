@@ -135,7 +135,6 @@ Parse.Cloud.define('updateUserBalance', function(request, response){
     console.error(error);
     response.success({error: true, message: error});
   });
-
 });
 
 //  url/parse/functions/userAccessToken
@@ -201,7 +200,6 @@ Parse.Cloud.define('getPlaidToken', function(request, response) {
         console.log(resp.access_token);
         user.set('backAccessToken', resp.access_token);
         user.save(null, {sessionToken: user.getSessionToken()}).then(function(user){
-
         })
         response.success('no mfa success');
     }
@@ -425,8 +423,14 @@ Parse.Cloud.define('checkBankAuth', function(request, response) {
 // https://plaid.com/docs/api/#webhooks VERY HELPFUL
 Parse.Cloud.define('roundLastTransaction', function(request, response) {
   // run getTransactions.... get last transaction set transaction value.. and use this to get charge
-  const transactionValue = request.transactionValue;
-  const charge = Math.ceil(transactionValue) - transactionValue
+  const transactionValue = parseFloat(request.params.transaction);
+
+  if(transactionValue==null){
+
+    response.error("error, transaction value for round up is null");
+  }
+  const charge = Math.ceil(transactionValue) - transactionValue;
+  response.success(charge);
 });
 
 // function to check rounded balance is at 10 needed
